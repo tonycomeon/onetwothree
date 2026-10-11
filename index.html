@@ -1,1403 +1,558 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- ============================================================
-     SEO — 아래 [ ] 부분은 회의에서 정보를 받아온 뒤 채워주세요.
-     도메인을 구매하면 jangsumalbeo.vercel.app 을 새 도메인으로 일괄 변경.
-     ============================================================ -->
-
-<title>장수말벌 | 서울 타투 크루 · Tattoo Crew in Seoul</title>
-<meta name="description" content="서울의 타투 크루 장수말벌. 블랙워크, 파인라인, 레터링 등 10인의 아티스트가 함께합니다. 영어 상담 가능, 외국인 손님 환영. 온라인 예약 및 상담 신청.">
-<meta name="keywords" content="서울 타투, 타투이스트, 블랙워크, 파인라인, 레터링 타투, seoul tattoo, tattoo artist seoul, korean tattoo">
-
-<link rel="canonical" href="https://jangsumalbeo.vercel.app/">
-<link rel="alternate" hreflang="ko" href="https://jangsumalbeo.vercel.app/">
-<link rel="alternate" hreflang="en" href="https://jangsumalbeo.vercel.app/">
-<link rel="alternate" hreflang="x-default" href="https://jangsumalbeo.vercel.app/">
-
-<meta name="robots" content="index, follow">
-<meta name="theme-color" content="#0a0a0a">
-
-<!-- 파비콘 (브라우저 탭 아이콘) -->
-<link rel="icon" type="image/png" href="assets/logo-64.png">
-<link rel="apple-touch-icon" href="assets/logo-512.png">
-
-<!-- 카카오톡·인스타·트위터에 링크 공유될 때 보이는 미리보기 -->
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="장수말벌">
-<meta property="og:title" content="장수말벌 | 서울 타투 크루">
-<meta property="og:description" content="블랙워크, 파인라인, 레터링 등 10인의 아티스트. 영어 상담 가능. 온라인 예약 및 상담 신청.">
-<meta property="og:image" content="https://jangsumalbeo.vercel.app/assets/logo-512.png">
-<meta property="og:url" content="https://jangsumalbeo.vercel.app/">
-<meta property="og:locale" content="ko_KR">
-<meta property="og:locale:alternate" content="en_US">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="장수말벌 | 서울 타투 크루">
-<meta name="twitter:description" content="블랙워크, 파인라인, 레터링 등 10인의 아티스트. 영어 상담 가능.">
-<meta name="twitter:image" content="https://jangsumalbeo.vercel.app/assets/logo-512.png">
-
-<!-- 구글이 "타투샵"으로 인식하게 해주는 구조화 데이터.
-     주소와 영업시간은 반영 완료. 전화번호는 확정되면 telephone 항목을 추가하세요. -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "TattooParlor",
-  "name": "장수말벌",
-  "alternateName": "Jangsu Malbeol Tattoo Crew",
-  "description": "서울의 타투 크루. 블랙워크, 파인라인, 레터링 등 10인의 아티스트가 함께합니다.",
-  "url": "https://jangsumalbeo.vercel.app/",
-  "logo": "https://jangsumalbeo.vercel.app/assets/logo-512.png",
-  "image": "https://jangsumalbeo.vercel.app/assets/logo-512.png",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "동교로15길 24 2F",
-    "addressLocality": "마포구",
-    "addressRegion": "서울",
-    "addressCountry": "KR"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": "37.5558",
-    "longitude": "126.9144"
-  },
-  "priceRange": "₩₩",
-  "currenciesAccepted": "KRW",
-  "openingHoursSpecification": [{
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-    "opens": "09:00",
-    "closes": "23:59"
-  }],
-  "sameAs": [
-    "https://www.instagram.com/jangsumalbeo1/"
-  ],
-  "availableLanguage": ["ko","en"],
-  "areaServed": {
-    "@type": "City",
-    "name": "Seoul"
-  }
-}
-</script>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>하나 둘 셋! 인물 퀴즈</title>
 <style>
-  /* ============================================================
-     TOKENS
-     — 크루 이름: 장수말벌 (로고: /assets/logo-*.png)
-     ============================================================ */
-  :root{
-    --ink:      #0a0a0a;
-    --charcoal: #141210;
-    --line:     #2a2620;
-    --bone:     #eae3d3;
-    --bone-dim: #a89f8c;
-    --accent:   #ffffff;
-    --danger:   #c9553d;
-    --nacre-1:  #eae3d3;
-    --nacre-2:  #cfd8cf;
-    --nacre-3:  #ddc9ad;
-    --display:  'Archivo Black', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-    --body:     'Inter', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-    --maxw:     1240px;
-  }
+:root{
+  --bg:#0c0e13; --panel:#161922; --panel2:#1d212c; --line:#2b3040;
+  --text:#f4f5f8; --muted:#9aa1b3; --ok:#22c55e; --ng:#ef4444; --accent:#facc15;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;
+  touch-action:manipulation;overscroll-behavior:none;-webkit-user-select:none;user-select:none}
+input,textarea{-webkit-user-select:text;user-select:text}
+button,select,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;border-radius:16px;background:var(--panel2);padding:14px 20px;font-weight:700}
+button:disabled{opacity:.35;cursor:default}
+button:active:not(:disabled){transform:scale(.97)}
+.primary{background:var(--accent);color:#111}
+.ghost{background:transparent;border:1px solid var(--line);color:var(--muted)}
+.big{font-size:22px;padding:20px 28px;border-radius:20px}
+.screen{display:none;min-height:100%;flex-direction:column}
+.screen.active{display:flex}
+.wrap{width:100%;max-width:760px;margin:0 auto;padding:max(28px,env(safe-area-inset-top)) 20px 40px}
+.wrap.wide{max-width:1100px}
+.hint{color:var(--muted);font-size:15px;line-height:1.5}
 
-  *{ box-sizing:border-box; margin:0; padding:0; }
-  html{ scroll-behavior:smooth; }
-  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+/* 홈 */
+h1{font-size:clamp(44px,8vw,76px);margin:24px 0 8px;letter-spacing:-1px}
+h1 span{color:var(--accent)}
+.sub{font-size:20px;color:var(--muted);margin:0 0 28px;line-height:1.5}
+.sub b{color:var(--text)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px}
+.stat small{display:block;color:var(--muted);font-size:14px}
+.stat strong{font-size:34px}
+.actions{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:16px}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.settings{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:6px 18px}
+.settings summary{padding:12px 0;font-weight:700;cursor:pointer}
+.setrow{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:1px solid var(--line);gap:12px}
+.setrow select{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 12px}
+.setrow input[type=checkbox]{width:24px;height:24px}
+.warn{color:var(--accent)}
 
-  body{
-    background:var(--ink);
-    color:var(--bone);
-    font-family:var(--body);
-    line-height:1.5;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-    touch-action:manipulation; /* 더블탭 확대만 막고 핀치 확대는 그대로 둠 */
-  }
+/* 게임 */
+#game{height:100%;min-height:100dvh;position:relative;overflow:hidden}
+.gbar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:max(12px,env(safe-area-inset-top)) 20px 8px;gap:12px}
+.dots{display:flex;gap:10px}
+.dot{width:30px;height:30px;border-radius:50%;border:3px solid var(--line)}
+.dot.on{background:var(--ok);border-color:var(--ok);box-shadow:0 0 16px rgba(34,197,94,.6)}
+.count{font-size:clamp(48px,8vw,84px);font-weight:900;min-width:4em;text-align:center;line-height:1}
+.count.pop{animation:pop .35s ease-out}
+.count.over{color:var(--ng)}
+@keyframes pop{from{transform:scale(1.6);opacity:.2}to{transform:scale(1);opacity:1}}
+.gright{display:flex;justify-content:flex-end;align-items:center;gap:12px;color:var(--muted)}
+.gright button{padding:10px 14px;font-size:15px}
+.bar{height:8px;margin:0 20px;background:var(--panel);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent)}
+.stage{flex:1;position:relative;display:flex;align-items:center;justify-content:center;padding:14px 20px;min-height:0}
+#photo{max-width:100%;max-height:100%;object-fit:contain;border-radius:18px;opacity:0;transition:opacity .15s}
+.noimg{display:none;position:absolute;inset:14px 20px;align-items:center;justify-content:center;flex-direction:column;gap:8px;
+  border:2px dashed var(--line);border-radius:18px;color:var(--muted);font-size:22px;text-align:center}
+.reveal{position:absolute;left:50%;bottom:28px;transform:translateX(-50%) scale(.9);opacity:0;transition:all .2s;
+  padding:14px 34px;border-radius:999px;font-size:clamp(30px,5vw,52px);font-weight:900;white-space:nowrap}
+.reveal.show{opacity:1;transform:translateX(-50%) scale(1)}
+.reveal.ok{background:var(--ok);color:#06210f}
+.reveal.ng{background:var(--ng);color:#fff}
+.panel{position:absolute;inset:0;display:none;align-items:center;justify-content:center;flex-direction:column;gap:18px;
+  background:rgba(12,14,19,.9);text-align:center;padding:24px;z-index:5}
+.panel.show{display:flex}
+.panel h2{font-size:clamp(40px,7vw,72px);margin:0}
+.panel p{font-size:24px;color:var(--muted);margin:0}
+.panel .ans{color:var(--text);font-weight:800}
+.ctrl{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;padding:12px 20px max(20px,env(safe-area-inset-bottom));align-items:center}
+.judge{font-size:clamp(28px,4.5vw,40px);padding:26px 10px;border-radius:24px;font-weight:900}
+.judge.ok{background:var(--ok);color:#06210f}
+.judge.ng{background:var(--ng);color:#fff}
+.ctrl .ghost{font-size:16px}
+#fx{position:absolute;inset:0;pointer-events:none;z-index:6}
 
-  a{ color:inherit; text-decoration:none; }
-  ul,ol{ list-style:none; }
-  button{ font-family:inherit; cursor:pointer; }
-  section{ padding:120px 24px; max-width:var(--maxw); margin:0 auto; }
-  @media (max-width:720px){ section{ padding:80px 20px; } }
-
-  /* ============================================================
-     LOADER — 장수말벌이 원형으로 날다가 로딩이 끝나면
-     화면 중앙(=nav의 제자리)으로 돌아와 접히는 연출
-     ============================================================ */
-  #loader{
-    position:fixed; inset:0; z-index:999;
-    background:var(--ink);
-    display:flex; align-items:center; justify-content:center;
-    transition:opacity .6s ease;
-  }
-  #loader.loader-done{ opacity:0; pointer-events:none; }
-
-  .hornet-wrap{
-    position:absolute;
-    width:64px; height:64px;
-    will-change:transform;
-  }
-  .hornet-icon{ width:100%; height:100%; display:block; overflow:visible; transition:opacity .5s ease; }
-  .hw-flap{ transform-origin:50px 46px; animation:flap .12s ease-in-out infinite alternate; }
-  .hw-flap.right{ transform-origin:50px 46px; }
-  @keyframes flap{ from{ transform:scaleX(1) rotate(0deg); } to{ transform:scaleX(.72) rotate(-8deg); } }
-  .hornet-wrap.landed .hw-flap{ animation:none; transform:scaleX(.4); }
-  .hornet-wrap.landed .hornet-icon{ opacity:0; }
-
-  .landed-logo{
-    position:absolute; top:0; left:0; width:100%; height:100%;
-    border-radius:50%; opacity:0; transition:opacity .5s ease .1s;
-  }
-  .hornet-wrap.landed .landed-logo{ opacity:1; }
-
-  .loader-text{
-    position:absolute;
-    bottom:14%;
-    font-family:var(--display);
-    font-size:14px;
-    letter-spacing:.3em;
-    color:var(--bone-dim);
-  }
-  .loader-text b{ color:var(--bone); font-size:15px; }
-
-  @media (prefers-reduced-motion: reduce){
-    .hornet-wrap{ display:none; }
-  }
-
-  /* ============================================================
-     NAV
-     ============================================================ */
-  header.nav{
-    position:fixed; top:0; left:0; right:0; z-index:200;
-    display:flex; align-items:center; justify-content:flex-end;
-    padding:16px 28px;
-    background:linear-gradient(var(--ink) 60%, transparent);
-  }
-  .brand{
-    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
-    display:flex; align-items:center;
-  }
-  .brand img{ width:64px; height:64px; display:block; }
-
-  .lang-toggle{ display:flex; align-items:center; gap:2px; font-family:var(--display); font-size:13px; letter-spacing:.08em; margin:-12px -8px -12px 0; }
-  .lang-toggle button{
-    all:unset; cursor:pointer; color:var(--bone-dim); transition:color .2s ease;
-    padding:12px 8px; min-width:44px; min-height:44px;
-    display:flex; align-items:center; justify-content:center;
-  }
-  .lang-toggle button.active{ color:var(--bone); }
-  .lang-toggle button:hover{ color:var(--accent); }
-  .lang-sep{ color:var(--line); }
-
-  /* ============================================================
-     ACCORDION — index rows that expand on click (LISTEN / COME / GET)
-     ============================================================ */
-  .accordion{ border-top:1px solid var(--line); }
-  .acc-item{ border-bottom:1px solid var(--line); }
-
-  .acc-header{
-    all:unset; box-sizing:border-box;
-    display:grid; grid-template-columns:40px 1fr 40px; align-items:center;
-    width:100%; cursor:pointer;
-    padding:28px 0;
-  }
-  .acc-title{
-    font-family:var(--display);
-    font-size:clamp(40px,7vw,84px);
-    text-transform:uppercase;
-    letter-spacing:.01em;
-    line-height:.95;
-    text-align:center;
-    background:linear-gradient(
-      110deg,
-      #f4efe2 0%,
-      #d7dcd2 20%,
-      #e9d9bd 40%,
-      #cfd8cf 60%,
-      #f4efe2 80%,
-      #ddc9ad 100%
-    );
-    background-size:300% 300%;
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-    transition:opacity .2s ease;
-    animation:pearl 8s ease-in-out infinite;
-  }
-  @keyframes pearl{
-    0%   { background-position:   0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position:   0% 50%; }
-  }
-  @media (prefers-reduced-motion: reduce){
-    .acc-title{ animation:none; }
-  }
-  .acc-header:hover .acc-title{ opacity:.7; }
-  .acc-icon{
-    font-family:var(--display); font-size:28px; color:var(--bone-dim);
-    text-align:right; transition:transform .35s ease, color .25s ease;
-  }
-  .acc-header[aria-expanded="true"] .acc-icon{ transform:rotate(45deg); color:var(--accent); }
-
-  .acc-panel{
-    display:grid; grid-template-rows:0fr;
-    transition:grid-template-rows .5s cubic-bezier(.4,0,.2,1);
-  }
-  .acc-header[aria-expanded="true"] + .acc-panel{ grid-template-rows:1fr; }
-  .acc-panel[hidden]{ display:none; }
-  .acc-panel-inner{ overflow:hidden; min-height:0; }
-  .acc-panel-content{ padding-bottom:56px; }
-  .acc-sub{ color:var(--bone-dim); font-size:15px; max-width:520px; margin-bottom:40px; }
-
-  /* ============================================================
-     LISTEN — roster
-     ============================================================ */
-  .roster{ border-top:1px solid var(--line); }
-  .roster li{
-    display:flex; align-items:center; gap:22px;
-    border-bottom:1px solid var(--line);
-    padding:20px 0;
-  }
-  .roster button.roster-row{
-    all:unset; display:flex; align-items:center; gap:22px; width:100%; cursor:pointer;
-  }
-  .roster-idx{ font-family:var(--display); font-size:13px; color:var(--bone-dim); width:32px; }
-  .roster-name{ font-family:var(--display); font-size:clamp(20px,3.4vw,32px); letter-spacing:.01em; flex:1; transition:color .2s ease; }
-  .roster li:hover .roster-name{ color:var(--accent); }
-  .roster-tag{ font-size:11px; letter-spacing:.14em; color:var(--bone-dim); text-transform:uppercase; }
-  .roster-ig{ font-size:11px; color:var(--bone-dim); display:flex; align-items:center; }
-  .roster-ig[href]:hover{ color:var(--accent); }
-  .roster-ig svg{ width:20px; height:20px; display:block; flex-shrink:0; }
-
-  /* ============================================================
-     COME — visit + booking
-     ============================================================ */
-  .come-grid{ display:grid; grid-template-columns:.85fr 1.15fr; gap:64px; }
-  @media (max-width:860px){ .come-grid{ grid-template-columns:1fr; gap:48px; } }
-
-  .visit-row{ border-bottom:1px solid var(--line); padding:18px 0; }
-  .visit-row .k{ font-size:11px; letter-spacing:.16em; color:var(--accent); text-transform:uppercase; margin-bottom:6px; }
-  .visit-row .v{ font-size:16px; font-weight:500; }
-
-  .visit-map{ margin-top:24px; border:1px solid var(--line); aspect-ratio:4/3; overflow:hidden; }
-  .visit-map iframe{
-    width:100%; height:100%; border:0; display:block;
-    filter:invert(92%) hue-rotate(180deg) grayscale(.3) contrast(.9) brightness(.95);
-  }
-  .visit-row .v-en{ font-size:13px; color:var(--bone-dim); margin-top:4px; }
-  .directions-btn{
-    display:inline-flex; align-items:center; gap:6px; margin-top:16px;
-    font-family:var(--display); font-size:11px; letter-spacing:.12em;
-    padding:13px 22px; background:var(--accent); color:var(--ink);
-    transition:opacity .2s ease;
-  }
-  .directions-btn:hover{ opacity:.85; }
-
-  form.booking{ display:flex; flex-direction:column; gap:18px; }
-  .field label{ display:block; font-size:11px; letter-spacing:.14em; color:var(--bone-dim); text-transform:uppercase; margin-bottom:8px; }
-  .field input, .field select, .field textarea{
-    width:100%; background:transparent; border:none; border-bottom:1px solid var(--line);
-    color:var(--bone); font-family:var(--body); font-size:15px; padding:10px 2px;
-  }
-  .field select option{ background:var(--ink); color:var(--bone); }
-  .field input:focus, .field select:focus, .field textarea:focus{ outline:none; border-bottom-color:var(--accent); }
-  .field textarea{ resize:vertical; min-height:90px; }
-  .row2{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-  @media (max-width:520px){ .row2{ grid-template-columns:1fr; } }
-
-  .date-field{ position:relative; }
-  .date-field input{ cursor:pointer; }
-  .date-field input::placeholder{ color:var(--bone-dim); }
-
-  .date-picker{
-    position:absolute; top:calc(100% + 10px); left:0; z-index:60;
-    width:280px; max-width:calc(100vw - 48px);
-    background:var(--charcoal); border:1px solid var(--line);
-    padding:16px;
-    opacity:0; transform:translateY(-6px);
-    pointer-events:none;
-    transition:opacity .18s ease, transform .18s ease;
-  }
-  .date-picker.open{ opacity:1; transform:translateY(0); pointer-events:auto; }
-
-  .date-picker-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
-  .date-picker-head button{ all:unset; cursor:pointer; color:var(--bone-dim); padding:2px 10px; font-size:18px; transition:color .2s ease; }
-  .date-picker-head button:hover{ color:var(--accent); }
-  .date-picker-label{
-    all:unset; cursor:pointer; font-family:var(--display); font-size:12px; letter-spacing:.06em;
-    color:var(--bone); text-transform:uppercase; transition:color .2s ease;
-  }
-  .date-picker-label:hover{ color:var(--accent); }
-
-  .date-picker-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:2px; text-align:center; }
-  .date-picker-grid.date-picker-years{ grid-template-columns:repeat(3,1fr); gap:6px; }
-  .date-picker-dow{ font-size:10px; color:var(--bone-dim); letter-spacing:.04em; padding-bottom:8px; }
-  .date-picker-day, .date-picker-year{
-    all:unset; box-sizing:border-box; cursor:pointer; text-align:center;
-    font-size:13px; color:var(--bone); padding:7px 0;
-    transition:background .15s ease, color .15s ease;
-  }
-  .date-picker-day:hover, .date-picker-year:hover{ background:var(--line); }
-  .date-picker-day.other-month{ color:var(--bone-dim); opacity:.35; pointer-events:none; }
-  .date-picker-day.today, .date-picker-year.current{ color:var(--accent); font-weight:700; }
-  .date-picker-day.selected{ background:var(--accent); color:var(--ink); font-weight:700; }
-  .booking .submit-btn{
-    all:unset; margin-top:8px; align-self:flex-start;
-    font-family:var(--display); font-size:12px; letter-spacing:.14em;
-    padding:16px 30px; background:var(--accent); color:var(--ink);
-    transition:opacity .2s ease;
-  }
-  .booking .submit-btn:hover{ opacity:.85; }
-  .form-success{
-    display:none; margin-top:6px; font-size:13px; color:var(--accent); border-left:2px solid var(--accent); padding-left:12px;
-  }
-  .form-success.show{ display:block; }
-
-  /* ============================================================
-     COME — consent items (예약 전 동의 항목)
-     ============================================================ */
-  .consent{ border-top:1px solid var(--line); margin-top:8px; }
-  .consent [lang]{ display:none; }
-  .consent [lang].on{ display:inline; }
-  .consent .consent-sub[lang].on{ display:block; }
-  .consent-full table[lang].on{ display:table; }
-
-  .consent-intro{ color:var(--bone-dim); font-size:13px; padding:16px 0; }
-
-  .consent-item{ border-bottom:1px solid var(--line); padding:18px 0; }
-  .consent-item.invalid{ border-bottom-color:var(--danger); }
-  .consent-item.overseas{ display:none; }
-  .consent-item.overseas.show{ display:block; }
-
-  .consent-row{ display:flex; align-items:flex-start; gap:14px; }
-
-  .consent input[type="checkbox"]{
-    appearance:none; flex:0 0 auto; width:20px; height:20px; margin-top:1px;
-    border:1px solid var(--bone-dim); background:transparent; cursor:pointer;
-    display:grid; place-content:center; transition:all .18s ease;
-  }
-  .consent input[type="checkbox"]::before{
-    content:""; width:10px; height:10px; transform:scale(0);
-    background:var(--ink); transition:transform .15s ease;
-    clip-path:polygon(14% 44%,0 65%,50% 100%,100% 16%,80% 0%,43% 62%);
-  }
-  .consent input[type="checkbox"]:checked{ background:var(--accent); border-color:var(--accent); }
-  .consent input[type="checkbox"]:checked::before{ transform:scale(1); }
-  .consent input[type="checkbox"]:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
-
-  .consent-label{ flex:1; cursor:pointer; }
-  .consent-tag{
-    display:inline-block; font-family:var(--display); font-size:10px; letter-spacing:.1em;
-    padding:2px 7px; margin-right:8px; vertical-align:1px;
-  }
-  .consent-tag.req{ background:var(--accent); color:var(--ink); }
-  .consent-tag.opt{ border:1px solid var(--bone-dim); color:var(--bone-dim); }
-  .consent-txt{ font-size:14px; font-weight:500; }
-  .consent-sub{ font-size:12px; color:var(--bone-dim); margin-top:4px; }
-
-  .consent-more{
-    all:unset; font-size:11px; letter-spacing:.1em; color:var(--bone-dim);
-    border-bottom:1px solid var(--bone-dim); cursor:pointer; margin-top:10px; display:inline-block;
-    transition:color .2s ease, border-color .2s ease;
-  }
-  .consent-more:hover{ color:var(--accent); border-color:var(--accent); }
-
-  .consent-full{ display:none; margin-top:14px; padding:16px; border:1px solid var(--line); background:var(--charcoal); }
-  .consent-full.open{ display:block; }
-  .consent-full table{ width:100%; border-collapse:collapse; font-size:12px; }
-  .consent-full th, .consent-full td{ text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
-  .consent-full th{ color:var(--bone); font-weight:600; white-space:nowrap; width:110px; font-size:11px; letter-spacing:.04em; }
-  .consent-full td{ color:var(--bone-dim); }
-  .consent-full tr:last-child th, .consent-full tr:last-child td{ border-bottom:none; }
-
-  .consent-error{ display:none; margin-top:14px; font-size:13px; color:var(--danger); }
-  .consent-error.show{ display:block; }
-
-  .consent-note{ font-size:12px; color:var(--bone-dim); margin-top:20px; padding-left:12px; border-left:2px solid var(--line); }
-
-  /* ============================================================
-     GET — portfolio grid (merch-card 참고)
-     ============================================================ */
-  .get-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:34px 26px; }
-  @media (max-width:900px){ .get-grid{ grid-template-columns:repeat(2,1fr); } }
-  @media (max-width:560px){
-    .get-grid{
-      display:flex; grid-template-columns:none; gap:0;
-      overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
-      scrollbar-width:none; margin:0 -20px; padding:0 20px;
-    }
-    .get-grid::-webkit-scrollbar{ display:none; }
-    .get-grid .get-card{ flex:0 0 100%; scroll-snap-align:center; }
-  }
-
-  .get-nav{ display:none; }
-  @media (max-width:560px){
-    .get-nav{ display:flex; align-items:center; justify-content:center; gap:20px; margin-top:24px; }
-    .get-nav button{
-      all:unset; cursor:pointer; width:44px; height:44px; flex:0 0 auto;
-      display:flex; align-items:center; justify-content:center;
-      border:1px solid var(--line); color:var(--bone-dim); font-size:20px;
-      transition:color .2s ease, border-color .2s ease;
-    }
-    .get-nav button:hover, .get-nav button:active{ color:var(--accent); border-color:var(--accent); }
-    .get-nav button:disabled{ opacity:.3; cursor:default; }
-    .get-nav-count{ font-family:var(--display); font-size:12px; letter-spacing:.1em; color:var(--bone-dim); min-width:56px; text-align:center; }
-  }
-
-  .get-card .art{
-    position:relative; aspect-ratio:3/4; background:var(--charcoal); overflow:hidden;
-    border:1px solid var(--line);
-  }
-  .get-card .art{ cursor:pointer; }
-  .get-card .art .face{
-    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-    transition:opacity .35s ease;
-  }
-  .get-card .art .face.back{ opacity:0; }
-  .get-card:hover .art .face.front,
-  .get-card.flipped .art .face.front{ opacity:0; }
-  .get-card:hover .art .face.back,
-  .get-card.flipped .art .face.back{ opacity:1; }
-  .get-card .art svg{ width:56%; height:56%; opacity:.9; }
-
-  .get-card .info{ padding-top:14px; }
-  .get-card .name{ font-family:var(--display); font-size:19px; text-transform:uppercase; margin-bottom:6px; }
-  .get-card .meta{ font-size:12px; color:var(--bone-dim); line-height:1.7; }
-  .get-card .meta b{ color:var(--bone); font-weight:600; }
-  .get-card .view{ display:inline-block; margin-top:10px; font-size:11px; letter-spacing:.14em; color:var(--accent); border-bottom:1px solid var(--accent); }
-  .get-card.highlight .art{ border-color:var(--accent); }
-
-  /* ============================================================
-     ARTIST MODAL — 로스터 클릭 시 해당 아티스트 카드를 바로 보여줌
-     ============================================================ */
-  .artist-modal{
-    position:fixed; inset:0; z-index:300;
-    display:flex; align-items:center; justify-content:center;
-    padding:24px;
-    opacity:0; pointer-events:none;
-    transition:opacity .25s ease;
-  }
-  .artist-modal.open{ opacity:1; pointer-events:auto; }
-  .artist-modal-backdrop{
-    position:absolute; inset:0; background:rgba(10,9,8,.86);
-  }
-  .artist-modal-card{
-    position:relative; width:100%; max-width:360px;
-    transform:translateY(16px) scale(.98);
-    transition:transform .3s cubic-bezier(.2,.8,.2,1);
-  }
-  .artist-modal.open .artist-modal-card{ transform:translateY(0) scale(1); }
-  .artist-modal-close{
-    all:unset; position:absolute; top:-16px; right:-16px; z-index:2;
-    width:36px; height:36px; display:flex; align-items:center; justify-content:center;
-    background:var(--ink); border:1px solid var(--line); color:var(--bone);
-    font-size:20px; cursor:pointer; transition:color .2s ease, border-color .2s ease;
-  }
-  .artist-modal-close:hover{ color:var(--accent); border-color:var(--accent); }
-
-  /* ============================================================
-     FOOTER
-     ============================================================ */
-  footer{ border-top:1px solid var(--line); padding:64px 24px 40px; text-align:center; }
-  footer .foot-links{ display:flex; gap:24px; justify-content:center; margin-bottom:24px; font-size:12px; letter-spacing:.1em; color:var(--bone-dim); }
-  footer .foot-links a:hover{ color:var(--accent); }
-  footer .copy{ font-size:11px; color:var(--bone-dim); letter-spacing:.05em; }
+/* 문제 관리 */
+.mhead{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+.mhead h2{margin:0;font-size:30px;flex:1}
+.mtools{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.filebtn{position:relative;overflow:hidden;display:inline-block;cursor:pointer;font-weight:700}
+.filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer}
+details.bulk{margin:14px 0;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:6px 16px 14px}
+details.bulk summary{padding:10px 0;font-weight:700;cursor:pointer}
+textarea{width:100%;min-height:160px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;position:relative}
+.card img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:var(--panel2)}
+.card .meta{padding:8px}
+.card input{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:8px;font-weight:700}
+.card input.empty{border-color:var(--accent)}
+.card .nm{font-weight:700;padding:8px 2px}
+.card .no{position:absolute;top:6px;left:6px;background:rgba(0,0,0,.65);border-radius:8px;padding:2px 8px;font-size:13px}
+.card .tag{font-size:12px;color:var(--muted)}
+.card .del{position:absolute;top:6px;right:6px;padding:4px 10px;border-radius:8px;background:rgba(0,0,0,.65);font-size:13px}
+.progress{color:var(--accent);font-weight:700}
+@media (max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}.actions{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<!-- ================= LOADER ================= -->
-<div id="loader">
-  <div class="hornet-wrap" id="hornetWrap">
-    <svg class="hornet-icon" viewBox="0 0 100 100">
-      <ellipse class="hw-flap left"  cx="30" cy="42" rx="22" ry="10" fill="var(--nacre-1)" opacity=".85"/>
-      <ellipse class="hw-flap right" cx="70" cy="42" rx="22" ry="10" fill="var(--nacre-1)" opacity=".85"/>
-      <ellipse cx="50" cy="50" rx="13" ry="9" fill="#161412"/>
-      <rect x="42" y="55" width="16" height="8" fill="var(--accent)"/>
-      <ellipse cx="50" cy="68" rx="11" ry="16" fill="#161412"/>
-      <rect x="41" y="62" width="18" height="6" fill="var(--accent)"/>
-      <rect x="41" y="74" width="18" height="6" fill="var(--accent)"/>
-      <polygon points="50,86 46,94 54,94" fill="#161412"/>
-      <circle cx="50" cy="38" r="8" fill="#161412"/>
-      <line x1="46" y1="32" x2="42" y2="24" stroke="#161412" stroke-width="2"/>
-      <line x1="54" y1="32" x2="58" y2="24" stroke="#161412" stroke-width="2"/>
-    </svg>
-    <img class="landed-logo" src="assets/logo-160.png" alt="장수말벌 로고">
-  </div>
-  <div class="loader-text"><b id="loaderPercent">0</b>%</div>
-</div>
-
-<!-- ================= NAV ================= -->
-<header class="nav">
-  <a class="brand" href="#">
-    <img src="assets/logo-64.png" alt="장수말벌 로고" width="64" height="64">
-  </a>
-  <div class="lang-toggle" id="langToggle">
-    <button type="button" data-lang="ko" class="active">KR</button>
-    <span class="lang-sep">/</span>
-    <button type="button" data-lang="en">ENG</button>
-  </div>
-</header>
-
-<!-- ================= INDEX / ACCORDION ================= -->
-<section class="accordion" id="menu">
-
-  <div class="acc-item" id="listen">
-    <button class="acc-header" id="listenHeader" aria-expanded="false" aria-controls="listenPanel">
-      <span></span>
-      <span class="acc-title">ARTIST</span>
-      <span class="acc-icon">+</span>
-    </button>
-    <div class="acc-panel" id="listenPanel">
-      <div class="acc-panel-inner">
-        <div class="acc-panel-content">
-          <p class="acc-sub" data-i18n="subArtist">크루를 이루는 열 명의 아티스트.</p>
-          <ol class="roster" id="rosterList"></ol>
-        </div>
-      </div>
+<!-- 홈 -->
+<section id="home" class="screen active">
+  <div class="wrap">
+    <h1>하나 · 둘 · <span>셋!</span></h1>
+    <p class="sub">인물 사진을 보고 <b>“셋”</b> 안에 이름을 맞혀라.<br><b id="hTarget">3</b>명 연속으로 맞히면 성공!</p>
+    <div class="stats">
+      <div class="stat"><small>전체 문제</small><strong id="sTotal">0</strong></div>
+      <div class="stat"><small>남은 문제</small><strong id="sLeft">0</strong></div>
+      <div class="stat"><small>도전자</small><strong id="sPlayers">0</strong></div>
+      <div class="stat"><small>성공</small><strong id="sWins">0</strong></div>
     </div>
-  </div>
-
-  <div class="acc-item" id="get">
-    <button class="acc-header" id="getHeader" aria-expanded="false" aria-controls="getPanel">
-      <span></span>
-      <span class="acc-title">WORK</span>
-      <span class="acc-icon">+</span>
-    </button>
-    <div class="acc-panel" id="getPanel">
-      <div class="acc-panel-inner">
-        <div class="acc-panel-content">
-          <p class="acc-sub" data-i18n="subWork">아티스트별 작업물. 사진을 클릭(또는 탭)하면 다른 작업물이 보입니다.</p>
-          <div class="get-grid" id="getGrid"></div>
-          <div class="get-nav" id="getNav">
-            <button type="button" id="getPrev" aria-label="Previous">&lsaquo;</button>
-            <span class="get-nav-count" id="getNavCount"></span>
-            <button type="button" id="getNext" aria-label="Next">&rsaquo;</button>
-          </div>
-        </div>
-      </div>
+    <div class="actions">
+      <button id="btnPlay" class="big primary">게임 시작</button>
+      <button id="btnManage" class="big">문제 관리</button>
     </div>
-  </div>
-
-  <div class="acc-item" id="come">
-    <a class="acc-header" href="booking.html">
-      <span></span>
-      <span class="acc-title">COME</span>
-      <span class="acc-icon">&rarr;</span>
-    </a>
-    <div class="acc-panel" id="comePanel" hidden>
-      <div class="acc-panel-inner">
-        <div class="acc-panel-content">
-          <p class="acc-sub" data-i18n="subCome">스튜디오 방문 안내와 예약 · 상담 신청.</p>
-          <div class="come-grid">
-            <div class="visit-info">
-              <div class="visit-row"><div class="k">Location</div><div class="v" data-i18n="visitLocation">서울 마포구 동교로15길 24, 2F</div><div class="v-en">24 Donggyo-ro 15-gil, Mapo-gu, Seoul</div></div>
-              <div class="visit-row"><div class="k">Hours</div><div class="v" data-i18n="visitHours">09:00 – 24:00 · 연중무휴</div></div>
-              <div class="visit-row"><div class="k">Contact</div><div class="v">DM @jangsumalbeo1</div></div>
-              <div class="visit-map">
-                <iframe src="https://www.google.com/maps?q=37.5558,126.9144&z=17&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="장수말벌 스튜디오 지도"></iframe>
-              </div>
-              <a class="directions-btn" href="https://www.google.com/maps/dir/?api=1&destination=37.5558,126.9144" target="_blank" rel="noopener">
-                <span data-i18n="getDirections">길찾기 · GET DIRECTIONS</span> ↗
-              </a>
-            </div>
-            <form class="booking" id="bookingForm">
-              <div class="field"><label for="f-name" data-i18n="fieldName">이름</label><input id="f-name" type="text" required placeholder="홍길동" data-i18n-placeholder="fieldNamePh"></div>
-              <div class="row2">
-                <div class="field"><label for="f-contact" data-i18n="fieldContact">연락처 / 인스타그램</label><input id="f-contact" type="text" required placeholder="010-0000-0000 또는 @handle" data-i18n-placeholder="fieldContactPh"></div>
-                <div class="field"><label for="f-artist" data-i18n="fieldArtist">희망 아티스트</label>
-                  <select id="f-artist">
-                    <option value="" data-i18n="fieldArtistAny">상관없음</option>
-                  </select>
-                </div>
-              </div>
-              <div class="field"><label for="f-desc" data-i18n="fieldDesc">원하는 디자인 · 부위 · 크기</label><textarea id="f-desc" required placeholder="예: 팔 안쪽, 손바닥만한 크기, 블랙워크 스타일" data-i18n-placeholder="fieldDescPh"></textarea></div>
-              <div class="row2">
-                <div class="field date-field">
-                  <label for="f-date" data-i18n="fieldDate">희망 날짜</label>
-                  <input id="f-date" type="text" readonly autocomplete="off" placeholder="YYYY-MM-DD">
-                  <div class="date-picker" id="datePicker">
-                    <div class="date-picker-head">
-                      <button type="button" id="dpPrev" aria-label="Previous">&lsaquo;</button>
-                      <button type="button" class="date-picker-label" id="dpLabel"></button>
-                      <button type="button" id="dpNext" aria-label="Next">&rsaquo;</button>
-                    </div>
-                    <div class="date-picker-grid" id="dpGrid"></div>
-                  </div>
-                </div>
-                <div class="field"><label for="f-ref" data-i18n="fieldRef">참고 이미지 첨부</label><input id="f-ref" type="file" accept="image/*"></div>
-              </div>
-
-              <div class="consent">
-                <p class="consent-intro">
-                  <span lang="ko" class="on">예약 신청 전 아래 항목을 확인해 주세요. 필수 항목에 모두 동의해야 신청이 접수됩니다.</span>
-                  <span lang="en">Please review the items below. All required items must be agreed to before we can accept your request.</span>
-                </p>
-
-                <div class="consent-item" data-req="1">
-                  <div class="consent-row">
-                    <input type="checkbox" id="c-age" data-required>
-                    <label class="consent-label" for="c-age">
-                      <span class="consent-tag req">필수</span>
-                      <span class="consent-txt">
-                        <span lang="ko" class="on">만 19세 이상입니다.</span>
-                        <span lang="en">I am 19 years of age or older.</span>
-                      </span>
-                      <span class="consent-sub on" lang="ko">시술 당일 신분증을 지참해 주세요. 확인이 불가능한 경우 시술이 거절될 수 있습니다.</span>
-                      <span class="consent-sub" lang="en">Please bring photo ID on the day. We may decline to proceed if we cannot verify your age.</span>
-                    </label>
-                  </div>
-                </div>
-
-                <div class="consent-item" data-req="1">
-                  <div class="consent-row">
-                    <input type="checkbox" id="c-privacy" data-required>
-                    <label class="consent-label" for="c-privacy">
-                      <span class="consent-tag req">필수</span>
-                      <span class="consent-txt">
-                        <span lang="ko" class="on">개인정보 수집·이용에 동의합니다.</span>
-                        <span lang="en">I consent to the collection and use of my personal information.</span>
-                      </span>
-                    </label>
-                  </div>
-                  <button type="button" class="consent-more" onclick="toggleConsentFull('f-privacy',this)">
-                    <span lang="ko" class="on">전문 보기</span><span lang="en">Read full text</span>
-                  </button>
-                  <div class="consent-full" id="f-privacy">
-                    <table lang="ko" class="on">
-                      <tr><th>수집 항목</th><td>이름, 이메일, 연락처, 국적/거주 국가, 희망 시술 부위·크기·스타일, 희망 일정, 레퍼런스 이미지</td></tr>
-                      <tr><th>수집 목적</th><td>타투 상담 및 예약 접수, 일정 조율, 시술 관련 안내</td></tr>
-                      <tr><th>보유 기간</th><td>마지막 시술일로부터 3년 후 파기. 결제 발생 시 결제 기록은 법령에 따라 5년 보관</td></tr>
-                      <tr><th>거부 권리</th><td>동의하지 않을 권리가 있으나, 필수 항목이므로 동의하지 않으면 예약 신청이 불가능합니다</td></tr>
-                    </table>
-                    <table lang="en">
-                      <tr><th>Collected</th><td>Name, email, contact, nationality, placement, size, style, preferred dates, reference images</td></tr>
-                      <tr><th>Purpose</th><td>Processing consultations and bookings, scheduling, appointment communications</td></tr>
-                      <tr><th>Retention</th><td>Destroyed 3 years after your last session. Payment records kept 5 years where required by law</td></tr>
-                      <tr><th>Right to refuse</th><td>You may decline, but we cannot accept your booking request without this consent</td></tr>
-                    </table>
-                  </div>
-                </div>
-
-                <div class="consent-item" data-req="1">
-                  <div class="consent-row">
-                    <input type="checkbox" id="c-image" data-required>
-                    <label class="consent-label" for="c-image">
-                      <span class="consent-tag req">필수</span>
-                      <span class="consent-txt">
-                        <span lang="ko" class="on">레퍼런스 이미지 처리 방침에 동의합니다.</span>
-                        <span lang="en">I consent to how my reference images are handled.</span>
-                      </span>
-                      <span class="consent-sub on" lang="ko">신체 부위가 포함된 사진은 담당 아티스트와 관리자만 열람하며, 비공개로 암호화 보관됩니다.</span>
-                      <span class="consent-sub" lang="en">Photos including part of your body are visible only to your artist and administrators, stored encrypted and private.</span>
-                    </label>
-                  </div>
-                  <button type="button" class="consent-more" onclick="toggleConsentFull('f-image',this)">
-                    <span lang="ko" class="on">전문 보기</span><span lang="en">Read full text</span>
-                  </button>
-                  <div class="consent-full" id="f-image">
-                    <table lang="ko" class="on">
-                      <tr><th>열람 범위</th><td>담당 아티스트와 크루 관리자만 열람 가능. 비공개 저장소에 암호화 보관</td></tr>
-                      <tr><th>사용 범위</th><td>시술 상담 목적 외에는 일절 사용하지 않음</td></tr>
-                      <tr><th>삭제</th><td>상담 종료 또는 시술 완료 후 요청 시 즉시 삭제</td></tr>
-                      <tr><th>외부 공개</th><td>별도 동의 없이 외부 공개 또는 제3자 제공하지 않음</td></tr>
-                    </table>
-                    <table lang="en">
-                      <tr><th>Access</th><td>Visible only to your assigned artist and crew administrators. Stored encrypted and private</td></tr>
-                      <tr><th>Use</th><td>Never used for any purpose other than your consultation</td></tr>
-                      <tr><th>Deletion</th><td>Deleted immediately upon request after your consultation or session</td></tr>
-                      <tr><th>Disclosure</th><td>Never published or shared with third parties without separate consent</td></tr>
-                    </table>
-                  </div>
-                </div>
-
-                <div class="consent-item overseas" id="item-overseas" data-req="1">
-                  <div class="consent-row">
-                    <input type="checkbox" id="c-thirdparty">
-                    <label class="consent-label" for="c-thirdparty">
-                      <span class="consent-tag req">필수</span>
-                      <span class="consent-txt">
-                        <span lang="ko" class="on">현지 스튜디오에 예약 정보가 제공되는 것에 동의합니다.</span>
-                        <span lang="en">I consent to my booking information being shared with the host studio.</span>
-                      </span>
-                      <span class="consent-sub on" lang="ko">해외 게스트 스팟 예약 시에만 해당합니다.</span>
-                      <span class="consent-sub" lang="en">Applies only to overseas guest spot bookings.</span>
-                    </label>
-                  </div>
-                  <button type="button" class="consent-more" onclick="toggleConsentFull('f-third',this)">
-                    <span lang="ko" class="on">전문 보기</span><span lang="en">Read full text</span>
-                  </button>
-                  <div class="consent-full" id="f-third">
-                    <table lang="ko" class="on">
-                      <tr><th>제공받는 자</th><td>해당 게스트 스팟을 주최하는 현지 타투 스튜디오</td></tr>
-                      <tr><th>제공 항목</th><td>이름, 연락처, 예약 일시, 시술 부위 및 크기</td></tr>
-                      <tr><th>제공 목적</th><td>현지 스튜디오의 예약 일정 관리 및 시술 준비</td></tr>
-                      <tr><th>거부 권리</th><td>동의하지 않으면 해외 게스트 스팟 예약이 불가능합니다 (국내 예약은 가능)</td></tr>
-                    </table>
-                    <table lang="en">
-                      <tr><th>Recipient</th><td>The local tattoo studio hosting the guest spot</td></tr>
-                      <tr><th>Shared</th><td>Name, contact details, appointment date and time, placement and size</td></tr>
-                      <tr><th>Purpose</th><td>Appointment scheduling and session preparation by the host studio</td></tr>
-                      <tr><th>Right to refuse</th><td>Without this consent we cannot process an overseas guest spot booking</td></tr>
-                    </table>
-                  </div>
-                </div>
-
-                <div class="consent-item">
-                  <div class="consent-row">
-                    <input type="checkbox" id="c-photo">
-                    <label class="consent-label" for="c-photo">
-                      <span class="consent-tag opt">선택</span>
-                      <span class="consent-txt">
-                        <span lang="ko" class="on">작업물 촬영 및 게시에 동의합니다.</span>
-                        <span lang="en">I consent to photos of my tattoo being published.</span>
-                      </span>
-                      <span class="consent-sub on" lang="ko">동의하지 않아도 예약과 시술에 아무런 불이익이 없습니다. 얼굴은 촬영하지 않으며, 게시 후에도 삭제를 요청할 수 있습니다.</span>
-                      <span class="consent-sub" lang="en">Declining will not affect your booking in any way. We never photograph your face, and you may request removal at any time.</span>
-                    </label>
-                  </div>
-                </div>
-
-                <div class="consent-item">
-                  <div class="consent-row">
-                    <input type="checkbox" id="c-marketing">
-                    <label class="consent-label" for="c-marketing">
-                      <span class="consent-tag opt">선택</span>
-                      <span class="consent-txt">
-                        <span lang="ko" class="on">게스트 스팟 일정 및 소식 수신에 동의합니다.</span>
-                        <span lang="en">I consent to receiving guest spot schedules and news.</span>
-                      </span>
-                      <span class="consent-sub on" lang="ko">동의하지 않아도 예약에 불이익이 없으며, 언제든 수신 거부할 수 있습니다.</span>
-                      <span class="consent-sub" lang="en">Declining will not affect your booking. You may unsubscribe at any time.</span>
-                    </label>
-                  </div>
-                </div>
-
-                <p class="consent-error" id="consentErr">
-                  <span lang="ko" class="on">필수 항목에 모두 동의해 주세요.</span>
-                  <span lang="en">Please agree to all required items.</span>
-                </p>
-
-                <p class="consent-note">
-                  <span lang="ko" class="on">개인정보 열람·정정·삭제 요청은 [crew@example.com] 으로 접수해 주세요. 접수일로부터 10일 이내에 처리 결과를 안내드립니다.</span>
-                  <span lang="en">To access, correct, or delete your personal information, contact [crew@example.com]. We respond within 10 days.</span>
-                </p>
-              </div>
-
-              <button type="submit" class="submit-btn" data-i18n="fieldSubmit" disabled>상담 신청하기</button>
-              <p class="form-success" id="formSuccess" data-i18n="fieldSuccess">상담 신청이 접수되었습니다. 빠른 시일 내에 연락드리겠습니다.</p>
-            </form>
-          </div>
-        </div>
-      </div>
+    <p class="hint warn" id="warn"></p>
+    <details class="settings">
+      <summary>설정</summary>
+      <div class="setrow"><span>카운트 속도 (한 박자)</span>
+        <select id="setSec">
+          <option value="0.7">0.7초 (빠름)</option><option value="0.8">0.8초</option>
+          <option value="1">1초 (기본)</option><option value="1.2">1.2초</option>
+          <option value="1.5">1.5초</option><option value="2">2초 (느림)</option>
+        </select></div>
+      <div class="setrow"><span>성공 조건 (연속 정답)</span>
+        <select id="setTarget">
+          <option value="1">1명</option><option value="2">2명</option><option value="3">3명 (기본)</option>
+          <option value="4">4명</option><option value="5">5명</option>
+        </select></div>
+      <div class="setrow"><span>“셋”이 끝나면 자동으로 오답 처리</span><input type="checkbox" id="setAuto"></div>
+      <div class="setrow"><span>효과음</span><input type="checkbox" id="setSound"></div>
+    </details>
+    <div class="row">
+      <button id="btnResetDeck" class="ghost">나온 문제 초기화</button>
+      <button id="btnResetStats" class="ghost">도전자·성공 기록 초기화</button>
+      <button id="btnFull" class="ghost">전체화면</button>
     </div>
+    <p class="hint">진행자 단축키(키보드): <b>Space</b> 시작/다음 · <b>→ / O</b> 정답 · <b>← / X</b> 오답 · <b>S</b> 건너뛰기</p>
   </div>
-
-  <div class="acc-item" id="merch">
-    <button class="acc-header" id="merchHeader" aria-expanded="false" aria-controls="merchPanel">
-      <span></span>
-      <span class="acc-title">GET</span>
-      <span class="acc-icon">+</span>
-    </button>
-    <div class="acc-panel" id="merchPanel">
-      <div class="acc-panel-inner">
-        <div class="acc-panel-content">
-          <p class="acc-sub" data-i18n="subGet">장수말벌 머천다이즈도 곧 준비중입니다.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
 </section>
 
-<footer>
-  <div class="foot-links">
-    <a href="#listen">ARTIST</a><a href="#get">WORK</a><a href="booking.html">COME</a><a href="#merch">GET</a>
-    <a href="https://www.instagram.com/jangsumalbeo1/" target="_blank" rel="noopener">INSTAGRAM</a>
-  </div>
-  <p class="copy">© 2026 JANGSU MALBEOL. ALL RIGHTS RESERVED. — MOCKUP BUILD</p>
-</footer>
+<!-- 게임 -->
+<section id="game" class="screen">
+  <header class="gbar">
+    <div class="dots" id="dots"></div>
+    <div class="count" id="count"></div>
+    <div class="gright"><span id="left"></span><button id="btnExit" class="ghost">나가기</button></div>
+  </header>
+  <div class="bar"><i id="barFill"></i></div>
+  <main class="stage">
+    <img id="photo" alt="">
+    <div id="noimg" class="noimg">사진을 불러올 수 없어요<small>건너뛰기를 눌러 주세요</small></div>
+    <div id="reveal" class="reveal"></div>
+    <div id="panel" class="panel"></div>
+  </main>
+  <footer class="ctrl">
+    <button id="btnWrong" class="judge ng" disabled>✕ 오답</button>
+    <button id="btnSkip" class="ghost" disabled>건너뛰기</button>
+    <button id="btnRight" class="judge ok" disabled>○ 정답</button>
+  </footer>
+  <canvas id="fx"></canvas>
+</section>
 
-<!-- ================= ARTIST MODAL ================= -->
-<div class="artist-modal" id="artistModal" role="dialog" aria-modal="true" aria-hidden="true">
-  <div class="artist-modal-backdrop" id="artistModalBackdrop"></div>
-  <div class="artist-modal-card">
-    <button type="button" class="artist-modal-close" id="artistModalClose" aria-label="Close">&times;</button>
-    <div class="artist-modal-body" id="artistModalBody"></div>
+<!-- 문제 관리 -->
+<section id="manage" class="screen">
+  <div class="wrap wide">
+    <div class="mhead">
+      <button id="btnBack" class="ghost">← 돌아가기</button>
+      <h2>문제 관리</h2>
+      <span id="mCount" class="hint"></span>
+    </div>
+    <div class="mtools">
+      <label class="filebtn big primary">사진 추가<input type="file" id="fileIn" accept="image/*" multiple></label>
+      <button id="btnClearUp" class="ghost">추가한 사진 전체 삭제</button>
+      <span id="upProg" class="progress"></span>
+    </div>
+    <p class="hint">파일 이름이 그대로 이름이 돼요 (예: <b>001_홍길동.jpg → 홍길동</b>). 이름 칸을 눌러 바로 고칠 수 있고, 이름이 비어 있는 사진은 게임에 나오지 않아요.<br>
+      여기서 추가한 사진은 이 기기·이 브라우저에만 저장돼요. <b>quiz-data.js</b>에 적은 문제는 “파일” 표시로 함께 보입니다.</p>
+    <details class="bulk">
+      <summary>이름 한 번에 입력하기</summary>
+      <textarea id="bulk" placeholder="한 줄에 한 명씩, 추가한 사진 순서대로 입력하세요&#10;홍길동&#10;김철수&#10;..."></textarea>
+      <button id="btnBulk" class="primary">사진 순서대로 적용</button>
+    </details>
+    <div id="grid" class="grid"></div>
   </div>
-</div>
+</section>
 
+<script src="quiz-data.js"></script>
 <script>
-/* ============================================================
-   DATA — 아티스트 10인
-   instagram 은 sudalisotter만 실제 링크가 있어 연결해두었고,
-   나머지는 handle 확보되면 ig 값만 채우면 됩니다.
-   style/since 값은 임시 placeholder 입니다.
-   ============================================================ */
-const ARTISTS = [
-  { name:"SUDALISOTTER", style:"BLACKWORK",      since:"2019", ig:"https://www.instagram.com/sudalisotter/" },
-  { name:"LAMONDOO",     style:"FINE LINE",      since:"2020", ig:"" },
-  { name:"KIIIDKR",      style:"ILLUSTRATIVE",   since:"2018", ig:"" },
-  { name:"WOOJEONG",     style:"NEO-TRADITIONAL",since:"2021", ig:"" },
-  { name:"GEAR4DAN",     style:"LETTERING",      since:"2020", ig:"" },
-  { name:"MUSH_MARO_",   style:"DOTWORK",        since:"2022", ig:"" },
-  { name:"MOORO",        style:"ORIENTAL",       since:"2017", ig:"" },
-  { name:"JUMBO",        style:"REALISM",        since:"2019", ig:"" },
-  { name:"KOBLIN",       style:"MINIMAL",        since:"2021", ig:"" },
-  { name:"DOKGONOING",   style:"COLOR WORK",     since:"2022", ig:"" }
-];
+(() => {
+  const $ = s => document.querySelector(s);
+  const WORDS = ['하나', '둘', '셋'];
+  const SKEY = 'hds.settings.v1', UKEY = 'hds.used.v1', STKEY = 'hds.stats.v1';
+  const DEFAULTS = { sec: 1, target: 3, autoFail: false, sound: true };
 
-function slug(name){ return name.toLowerCase().replace(/[^a-z0-9]/g,""); }
+  const read = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } };
+  const write = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
 
-const INSTAGRAM_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-  <rect x="2.5" y="2.5" width="19" height="19" rx="5"/>
-  <circle cx="12" cy="12" r="5"/>
-  <circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/>
-</svg>`;
+  let S = Object.assign({}, DEFAULTS, read(SKEY, {}));
+  let used = new Set(read(UKEY, []));
+  let stats = Object.assign({ players: 0, wins: 0 }, read(STKEY, {}));
+  let fileQs = [], upQs = [], idbOK = true;
 
-/* --- flash-art placeholder icons (원본 라인아트, 실제 작업 사진으로 교체 예정) --- */
-const ICONS = [
-  `<path d="M50 15 L58 45 L50 40 L42 45 Z M50 40 L50 85" stroke="var(--bone)" stroke-width="3" fill="none"/>`,
-  `<circle cx="50" cy="50" r="26" stroke="var(--bone)" stroke-width="3" fill="none"/><circle cx="50" cy="50" r="10" stroke="var(--bone)" stroke-width="3" fill="none"/>`,
-  `<path d="M20 70 Q50 20 80 70" stroke="var(--bone)" stroke-width="3" fill="none"/><path d="M20 70 Q50 40 80 70" stroke="var(--bone)" stroke-width="3" fill="none"/>`,
-  `<path d="M30 30 L70 70 M70 30 L30 70" stroke="var(--bone)" stroke-width="3"/>`,
-  `<path d="M50 20 C20 30 20 60 50 85 C80 60 80 30 50 20 Z" stroke="var(--bone)" stroke-width="3" fill="none"/>`,
-  `<path d="M25 55 Q40 20 55 55 Q70 20 85 55" stroke="var(--bone)" stroke-width="3" fill="none"/>`
-];
-const ICONS_ALT = [
-  `<rect x="30" y="30" width="40" height="40" stroke="var(--accent)" stroke-width="3" fill="none" transform="rotate(45 50 50)"/>`,
-  `<path d="M15 50 L85 50 M50 15 L50 85" stroke="var(--accent)" stroke-width="3"/>`,
-  `<path d="M20 30 Q50 90 80 30" stroke="var(--accent)" stroke-width="3" fill="none"/>`,
-  `<circle cx="35" cy="45" r="12" stroke="var(--accent)" stroke-width="3" fill="none"/><circle cx="65" cy="55" r="12" stroke="var(--accent)" stroke-width="3" fill="none"/>`,
-  `<path d="M50 15 L85 50 L50 85 L15 50 Z" stroke="var(--accent)" stroke-width="3" fill="none"/>`,
-  `<path d="M20 20 L80 80 M20 80 L80 20 M50 10 L50 90" stroke="var(--accent)" stroke-width="2"/>`
-];
-
-/* --- LISTEN roster --- */
-const rosterEl = document.getElementById("rosterList");
-ARTISTS.forEach((a,i)=>{
-  const li = document.createElement("li");
-  li.innerHTML = `
-    <button class="roster-row" data-idx="${i}">
-      <span class="roster-idx">${String(i+1).padStart(2,"0")}</span>
-      <span class="roster-name">${a.name}</span>
-      <span class="roster-tag">${a.style}</span>
-    </button>
-    ${a.ig ? `<a class="roster-ig" href="${a.ig}" target="_blank" rel="noopener" aria-label="Instagram">${INSTAGRAM_ICON}</a>` : `<span class="roster-ig" style="opacity:.4;">${INSTAGRAM_ICON}</span>`}
-  `;
-  rosterEl.appendChild(li);
-});
-rosterEl.addEventListener("click",(e)=>{
-  const row = e.target.closest(".roster-row");
-  if(!row) return;
-  const idx = Number(row.dataset.idx);
-  openArtistModal(ARTISTS[idx], idx);
-});
-
-/* --- COME: artist select options --- */
-const selectEl = document.getElementById("f-artist");
-ARTISTS.forEach(a=>{
-  const opt = document.createElement("option");
-  opt.value = a.name; opt.textContent = a.name;
-  selectEl.appendChild(opt);
-});
-
-/* ============================================================
-   COME — 희망 날짜 커스텀 캘린더
-   ============================================================ */
-const dpInput = document.getElementById("f-date");
-const dpPicker = document.getElementById("datePicker");
-const dpLabel = document.getElementById("dpLabel");
-const dpGrid = document.getElementById("dpGrid");
-const dpPrev = document.getElementById("dpPrev");
-const dpNext = document.getElementById("dpNext");
-
-const DP_MONTHS_KO = ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"];
-const DP_MONTHS_EN = ["JANUARY","FEBRUARY","MARCH","APRIL","MAY","JUNE","JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER"];
-const DP_DOW_KO = ["일","월","화","수","목","금","토"];
-const DP_DOW_EN = ["S","M","T","W","T","F","S"];
-
-const dpToday = new Date();
-let dpViewYear = dpToday.getFullYear();
-let dpViewMonth = dpToday.getMonth();
-let dpSelected = null;
-let dpMode = "days";
-let dpYearRangeStart = dpViewYear - 6;
-
-function dpPad(n){ return String(n).padStart(2, "0"); }
-function dpLang(){ return document.documentElement.lang === "en" ? "en" : "ko"; }
-
-function dpRender(){
-  if(dpMode === "years"){ dpRenderYears(); }
-  else { dpRenderDays(); }
-}
-
-function dpRenderDays(){
-  const lang = dpLang();
-  const months = lang === "en" ? DP_MONTHS_EN : DP_MONTHS_KO;
-  const dow = lang === "en" ? DP_DOW_EN : DP_DOW_KO;
-  dpLabel.textContent = lang === "en" ? `${months[dpViewMonth]} ${dpViewYear}` : `${dpViewYear}년 ${months[dpViewMonth]}`;
-  dpGrid.className = "date-picker-grid";
-
-  let html = dow.map(d => `<div class="date-picker-dow">${d}</div>`).join("");
-
-  const firstDay = new Date(dpViewYear, dpViewMonth, 1).getDay();
-  const daysInMonth = new Date(dpViewYear, dpViewMonth + 1, 0).getDate();
-  const daysInPrevMonth = new Date(dpViewYear, dpViewMonth, 0).getDate();
-
-  for(let i = firstDay - 1; i >= 0; i--){
-    html += `<span class="date-picker-day other-month">${daysInPrevMonth - i}</span>`;
+  /* ---------- 데이터 ---------- */
+  function loadFileData() {
+    const raw = Array.isArray(window.QUIZ_DATA) ? window.QUIZ_DATA : [];
+    fileQs = raw.filter(x => x && x.name && String(x.name).trim()).map(x => ({
+      id: 'f:' + (x.photo || '') + '|' + String(x.name).trim(),
+      name: String(x.name).trim(), src: x.photo || '', source: 'file'
+    }));
   }
-  for(let d = 1; d <= daysInMonth; d++){
-    const isToday = d === dpToday.getDate() && dpViewMonth === dpToday.getMonth() && dpViewYear === dpToday.getFullYear();
-    const isSelected = dpSelected && dpSelected.y === dpViewYear && dpSelected.m === dpViewMonth && dpSelected.d === d;
-    const cls = ["date-picker-day"];
-    if(isToday) cls.push("today");
-    if(isSelected) cls.push("selected");
-    html += `<button type="button" class="${cls.join(" ")}" data-day="${d}">${d}</button>`;
+  const allQs = () => fileQs.concat(upQs);
+  const playable = () => allQs().filter(q => q.name && q.name.trim());
+
+  function nameFromFile(n) {
+    let s = n.replace(/\.[^.]+$/, '').replace(/^\d+[\s._-]+/, '').trim();
+    if (/^(IMG|DSC|DSCN|PXL|image|photo|Screenshot)[\s_-]?\d/i.test(s) || /^\d+$/.test(s)) return '';
+    return s;
   }
-  const totalCells = firstDay + daysInMonth;
-  const remainder = totalCells % 7;
-  if(remainder !== 0){
-    const trailing = 7 - remainder;
-    for(let d = 1; d <= trailing; d++){
-      html += `<span class="date-picker-day other-month">${d}</span>`;
-    }
-  }
-  dpGrid.innerHTML = html;
-}
 
-function dpRenderYears(){
-  dpLabel.textContent = `${dpYearRangeStart} – ${dpYearRangeStart + 11}`;
-  dpGrid.className = "date-picker-grid date-picker-years";
-  let html = "";
-  for(let y = dpYearRangeStart; y < dpYearRangeStart + 12; y++){
-    const cls = ["date-picker-year"];
-    if(y === dpViewYear) cls.push("current");
-    html += `<button type="button" class="${cls.join(" ")}" data-year="${y}">${y}</button>`;
-  }
-  dpGrid.innerHTML = html;
-}
-
-function dpOpen(){
-  dpMode = "days";
-  if(dpSelected){ dpViewYear = dpSelected.y; dpViewMonth = dpSelected.m; }
-  dpRender();
-  dpPicker.classList.add("open");
-}
-function dpClose(){
-  dpPicker.classList.remove("open");
-}
-
-dpInput.addEventListener("click", (e)=>{
-  e.stopPropagation();
-  if(dpPicker.classList.contains("open")) dpClose(); else dpOpen();
-});
-
-dpLabel.addEventListener("click", ()=>{
-  if(dpMode === "days"){
-    dpMode = "years";
-    dpYearRangeStart = dpViewYear - 6;
-  } else {
-    dpMode = "days";
-  }
-  dpRender();
-});
-
-dpPrev.addEventListener("click", ()=>{
-  if(dpMode === "days"){
-    dpViewMonth--;
-    if(dpViewMonth < 0){ dpViewMonth = 11; dpViewYear--; }
-  } else {
-    dpYearRangeStart -= 12;
-  }
-  dpRender();
-});
-dpNext.addEventListener("click", ()=>{
-  if(dpMode === "days"){
-    dpViewMonth++;
-    if(dpViewMonth > 11){ dpViewMonth = 0; dpViewYear++; }
-  } else {
-    dpYearRangeStart += 12;
-  }
-  dpRender();
-});
-
-dpGrid.addEventListener("click", (e)=>{
-  const dayBtn = e.target.closest("[data-day]");
-  if(dayBtn){
-    dpSelected = { y: dpViewYear, m: dpViewMonth, d: Number(dayBtn.dataset.day) };
-    dpInput.value = `${dpSelected.y}-${dpPad(dpSelected.m + 1)}-${dpPad(dpSelected.d)}`;
-    dpClose();
-    return;
-  }
-  const yearBtn = e.target.closest("[data-year]");
-  if(yearBtn){
-    dpViewYear = Number(yearBtn.dataset.year);
-    dpMode = "days";
-    dpRender();
-  }
-});
-
-dpPicker.addEventListener("click", (e)=> e.stopPropagation());
-
-document.addEventListener("click", (e)=>{
-  if(dpPicker.classList.contains("open") && e.target !== dpInput){
-    dpClose();
-  }
-});
-document.addEventListener("keydown", (e)=>{
-  if(e.key === "Escape") dpClose();
-});
-
-/* ============================================================
-   COME — 예약 전 동의 항목 (consent-form.html에서 병합됨)
-   ============================================================ */
-function toggleConsentFull(id, btn){
-  const el = document.getElementById(id);
-  const open = el.classList.toggle("open");
-  btn.querySelectorAll("span").forEach(s=>{
-    const ko = s.getAttribute("lang") === "ko";
-    s.textContent = open
-      ? (ko ? "접기" : "Close")
-      : (ko ? "전문 보기" : "Read full text");
-  });
-}
-
-let isOverseas = false;
-function setOverseas(on){
-  isOverseas = on;
-  const item = document.getElementById("item-overseas");
-  const box = document.getElementById("c-thirdparty");
-  item.classList.toggle("show", on);
-  if(on){ box.setAttribute("data-required",""); }
-  else { box.removeAttribute("data-required"); box.checked = false; }
-  validateConsent();
-}
-
-function validateConsent(){
-  const required = [...document.querySelectorAll("#bookingForm input[data-required]")];
-  const allChecked = required.every(b => b.checked);
-  document.querySelector("#bookingForm .submit-btn").disabled = !allChecked;
-  if(allChecked){
-    document.getElementById("consentErr").classList.remove("show");
-    document.querySelectorAll(".consent-item.invalid").forEach(i=>i.classList.remove("invalid"));
-  }
-  return allChecked;
-}
-
-document.querySelectorAll("#bookingForm input[type=\"checkbox\"]").forEach(b=>{
-  b.addEventListener("change", validateConsent);
-});
-setOverseas(false);
-
-/* --- COME: mock submit --- */
-document.getElementById("bookingForm").addEventListener("submit",(e)=>{
-  e.preventDefault();
-
-  if(!validateConsent()){
-    document.getElementById("consentErr").classList.add("show");
-    document.querySelectorAll("#bookingForm input[data-required]").forEach(b=>{
-      if(!b.checked) b.closest(".consent-item").classList.add("invalid");
+  /* ---------- IndexedDB (앱에서 추가한 사진) ---------- */
+  let dbp = null;
+  function db() {
+    if (!dbp) dbp = new Promise((res, rej) => {
+      try {
+        const r = indexedDB.open('hds-quiz', 1);
+        r.onupgradeneeded = () => r.result.createObjectStore('photos', { keyPath: 'id' });
+        r.onsuccess = () => res(r.result);
+        r.onerror = () => rej(r.error);
+      } catch (e) { rej(e); }
     });
-    return;
+    return dbp;
   }
-
-  /* 동의 시각과 동의한 약관 버전을 예약 데이터와 함께 저장해야 향후 분쟁 시 증빙이 됩니다. */
-  const consentRecord = {
-    consented_at: new Date().toISOString(),
-    policy_version: "2026-07-14",
-    age_19_or_over: document.getElementById("c-age").checked,
-    privacy_collection: document.getElementById("c-privacy").checked,
-    reference_images: document.getElementById("c-image").checked,
-    third_party_studio: isOverseas ? document.getElementById("c-thirdparty").checked : null,
-    photo_publication: document.getElementById("c-photo").checked,
-    marketing_emails: document.getElementById("c-marketing").checked
-  };
-  console.log("DB에 저장할 동의 기록:", consentRecord);
-
-  document.getElementById("formSuccess").classList.add("show");
-  e.target.reset();
-  validateConsent();
-});
-
-/* --- GET grid (merch-card 참고) --- */
-function artistCardHTML(a, i, opts){
-  const cta = (opts && opts.mode === "booking")
-    ? `<a class="view" data-i18n="bookArtist" href="booking.html?artist=${encodeURIComponent(a.name)}">예약하기 ↗</a>`
-    : (a.ig
-        ? `<a class="view" data-i18n="viewPortfolio" href="${a.ig}" target="_blank" rel="noopener">PORTFOLIO 보기 ↗</a>`
-        : `<span class="view" data-i18n="viewPortfolioSoon" style="opacity:.5;cursor:default;">PORTFOLIO 준비중</span>`);
-  return `
-    <div class="art">
-      <div class="face front"><svg viewBox="0 0 100 100">${ICONS[i % ICONS.length]}</svg></div>
-      <div class="face back"><svg viewBox="0 0 100 100">${ICONS_ALT[i % ICONS_ALT.length]}</svg></div>
-    </div>
-    <div class="info">
-      <div class="name">${a.name}</div>
-      <div class="meta"><b>STYLE</b> ${a.style}<br><b>SINCE</b> ${a.since}<br><b>BASE</b> SEOUL</div>
-      ${cta}
-    </div>
-  `;
-}
-
-const getGrid = document.getElementById("getGrid");
-ARTISTS.forEach((a,i)=>{
-  const card = document.createElement("div");
-  card.className = "get-card";
-  card.id = `get-${slug(a.name)}`;
-  card.innerHTML = artistCardHTML(a, i);
-  getGrid.appendChild(card);
-});
-
-/* ============================================================
-   GET(WORK) 모바일 캐러셀 — 좌우 화살표로 아티스트 포트폴리오 넘겨보기
-   (PC에서는 .get-nav가 숨겨져 있어 기존 그리드+호버 컨셉 그대로 유지됩니다)
-   ============================================================ */
-const getNav = document.getElementById("getNav");
-const getPrev = document.getElementById("getPrev");
-const getNext = document.getElementById("getNext");
-const getNavCount = document.getElementById("getNavCount");
-
-function getActiveCardIndex(){
-  const cards = [...getGrid.children];
-  const center = getGrid.scrollLeft + getGrid.clientWidth / 2;
-  let closest = 0, closestDist = Infinity;
-  cards.forEach((c, i)=>{
-    const dist = Math.abs((c.offsetLeft + c.offsetWidth / 2) - center);
-    if(dist < closestDist){ closestDist = dist; closest = i; }
-  });
-  return closest;
-}
-
-function updateGetNav(){
-  const total = getGrid.children.length;
-  const idx = getActiveCardIndex();
-  getNavCount.textContent = `${idx + 1} / ${total}`;
-  getPrev.disabled = idx === 0;
-  getNext.disabled = idx === total - 1;
-}
-
-function goToGetCard(idx){
-  const cards = getGrid.children;
-  const clamped = Math.max(0, Math.min(cards.length - 1, idx));
-  cards[clamped].scrollIntoView({ behavior: reduced ? "auto" : "smooth", inline: "center", block: "nearest" });
-}
-
-getPrev.addEventListener("click", ()=> goToGetCard(getActiveCardIndex() - 1));
-getNext.addEventListener("click", ()=> goToGetCard(getActiveCardIndex() + 1));
-
-let getScrollTimer;
-getGrid.addEventListener("scroll", ()=>{
-  clearTimeout(getScrollTimer);
-  getScrollTimer = setTimeout(updateGetNav, 100);
-});
-updateGetNav();
-
-/* 터치 기기에서는 호버가 없어 카드가 뒤집히지 않으므로,
-   탭으로 .flipped 를 토글합니다. 호버 가능한 데스크톱에서는
-   이 리스너를 아예 붙이지 않아 :hover 만으로 동작합니다.
-   (WORK 그리드 카드, 아티스트 모달 카드 모두 동적으로 생성되므로
-   document 위임으로 처리해 나중에 추가되는 카드도 커버합니다.) */
-if(window.matchMedia("(hover: none)").matches){
-  document.addEventListener("click",(e)=>{
-    const card = e.target.closest(".get-card");
-    if(!card) return;
-    if(e.target.closest("a")) return;
-    card.classList.toggle("flipped");
-  });
-}
-
-/* ============================================================
-   ARTIST MODAL — 로스터에서 아티스트를 누르면 카드가 바로 뜹니다.
-   ============================================================ */
-const artistModal = document.getElementById("artistModal");
-const artistModalBody = document.getElementById("artistModalBody");
-let lastFocused = null;
-
-function openArtistModal(a, i){
-  lastFocused = document.activeElement;
-  const card = document.createElement("div");
-  card.className = "get-card";
-  card.innerHTML = artistCardHTML(a, i, { mode: "booking" });
-  artistModalBody.innerHTML = "";
-  artistModalBody.appendChild(card);
-  applyLang(document.documentElement.lang || "ko");
-
-  artistModal.classList.add("open");
-  artistModal.setAttribute("aria-hidden", "false");
-  document.body.style.overflow = "hidden";
-  document.getElementById("artistModalClose").focus();
-}
-
-function closeArtistModal(){
-  artistModal.classList.remove("open");
-  artistModal.setAttribute("aria-hidden", "true");
-  document.body.style.overflow = "";
-  if(lastFocused) lastFocused.focus();
-}
-
-document.getElementById("artistModalClose").addEventListener("click", closeArtistModal);
-document.getElementById("artistModalBackdrop").addEventListener("click", closeArtistModal);
-document.addEventListener("keydown",(e)=>{
-  if(e.key === "Escape" && artistModal.classList.contains("open")) closeArtistModal();
-});
-
-const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-/* ============================================================
-   ACCORDION — LISTEN / COME / GET 헤더를 누르면 펼쳐지고,
-   다른 항목을 누르면 이전에 열린 항목은 닫힙니다.
-   ============================================================ */
-const accHeaders = document.querySelectorAll("button.acc-header");
-
-function openAccordion(id){
-  const header = document.getElementById(`${id}Header`);
-  if(!header || header.getAttribute("aria-expanded") === "true") return;
-  accHeaders.forEach(h=>h.setAttribute("aria-expanded","false"));
-  header.setAttribute("aria-expanded","true");
-}
-
-accHeaders.forEach(header=>{
-  header.addEventListener("click",()=>{
-    const isOpen = header.getAttribute("aria-expanded") === "true";
-    accHeaders.forEach(h=>h.setAttribute("aria-expanded","false"));
-    header.setAttribute("aria-expanded", isOpen ? "false" : "true");
-  });
-});
-
-function goToSection(id){
-  openAccordion(id);
-  const el = document.getElementById(id);
-  const delay = reduced ? 0 : 260;
-  setTimeout(()=>el.scrollIntoView({behavior: reduced ? "auto" : "smooth", block:"start"}), delay);
-}
-
-document.querySelectorAll("footer .foot-links a[href^='#']").forEach(a=>{
-  a.addEventListener("click",(e)=>{
-    e.preventDefault();
-    goToSection(a.getAttribute("href").slice(1));
-  });
-});
-
-/* ============================================================
-   i18n — 한/영 전환
-   ============================================================ */
-const TRANSLATIONS = {
-  subArtist:      { ko:"크루를 이루는 열 명의 아티스트.",                              en:"Ten artists that make up the crew." },
-  subCome:        { ko:"스튜디오 방문 안내와 예약 · 상담 신청.",                        en:"Studio visit info and booking · consultation request." },
-  subWork:        { ko:"아티스트별 작업물. 사진을 클릭(또는 탭)하면 다른 작업물이 보입니다.", en:"Work by each artist. Click or tap a photo to see another piece." },
-  subGet:         { ko:"장수말벌 머천다이즈도 곧 준비중입니다.",                          en:"Jangsu Malbeol merchandise is coming soon too." },
-  visitLocation:  { ko:"서울 마포구 동교로15길 24, 2F",                                  en:"2F, 24 Donggyo-ro 15-gil, Mapo-gu, Seoul" },
-  visitHours:     { ko:"09:00 – 24:00 · 연중무휴",                                     en:"09:00 – 24:00 · Open every day" },
-  getDirections:  { ko:"길찾기 · GET DIRECTIONS",                                       en:"GET DIRECTIONS" },
-  fieldName:      { ko:"이름",                                                        en:"Name" },
-  fieldNamePh:    { ko:"홍길동",                                                       en:"John Doe" },
-  fieldContact:   { ko:"연락처 / 인스타그램",                                          en:"Contact / Instagram" },
-  fieldContactPh: { ko:"010-0000-0000 또는 @handle",                                  en:"010-0000-0000 or @handle" },
-  fieldArtist:    { ko:"희망 아티스트",                                                en:"Preferred Artist" },
-  fieldArtistAny: { ko:"상관없음",                                                     en:"No preference" },
-  fieldDesc:      { ko:"원하는 디자인 · 부위 · 크기",                                   en:"Desired design · placement · size" },
-  fieldDescPh:    { ko:"예: 팔 안쪽, 손바닥만한 크기, 블랙워크 스타일",                    en:"e.g. inner arm, palm-sized, blackwork style" },
-  fieldDate:      { ko:"희망 날짜",                                                    en:"Preferred date" },
-  fieldRef:       { ko:"참고 이미지 첨부",                                              en:"Attach reference image" },
-  fieldSubmit:    { ko:"상담 신청하기",                                                en:"Request Consultation" },
-  fieldSuccess:   { ko:"상담 신청이 접수되었습니다. 빠른 시일 내에 연락드리겠습니다.",        en:"Your request has been received. We'll get back to you soon." },
-  viewPortfolio:     { ko:"PORTFOLIO 보기 ↗",  en:"VIEW PORTFOLIO ↗" },
-  viewPortfolioSoon: { ko:"PORTFOLIO 준비중",   en:"PORTFOLIO COMING SOON" },
-  bookArtist:        { ko:"예약하기 ↗",        en:"BOOK NOW ↗" }
-};
-
-function applyLang(lang){
-  document.documentElement.lang = lang;
-  document.querySelectorAll("[data-i18n]").forEach(el=>{
-    const t = TRANSLATIONS[el.dataset.i18n];
-    if(t) el.textContent = t[lang];
-  });
-  document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{
-    const t = TRANSLATIONS[el.dataset.i18nPlaceholder];
-    if(t) el.placeholder = t[lang];
-  });
-  document.querySelectorAll(".lang-toggle button").forEach(btn=>{
-    btn.classList.toggle("active", btn.dataset.lang === lang);
-  });
-  applyConsentLang(lang);
-  dpRender();
-}
-
-function applyConsentLang(lang){
-  document.querySelectorAll(".consent [lang]").forEach(el=>{
-    el.classList.toggle("on", el.getAttribute("lang") === lang);
-  });
-  document.querySelectorAll(".consent-tag.req").forEach(t=> t.textContent = lang === "ko" ? "필수" : "REQUIRED");
-  document.querySelectorAll(".consent-tag.opt").forEach(t=> t.textContent = lang === "ko" ? "선택" : "OPTIONAL");
-}
-
-document.querySelectorAll(".lang-toggle button").forEach(btn=>{
-  btn.addEventListener("click",()=>applyLang(btn.dataset.lang));
-});
-
-applyLang("ko");
-
-/* ============================================================
-   LOADER ANIMATION
-   장수말벌이 원을 그리며 날다가, 로딩이 끝나면
-   화면 중앙(제자리)으로 돌아와 날개를 접습니다.
-   ============================================================ */
-(function(){
-  const loader = document.getElementById("loader");
-  const hornet = document.getElementById("hornetWrap");
-  const percentEl = document.getElementById("loaderPercent");
-
-  /* COME(booking.html) 등 다른 페이지를 오가다 index.html로 돌아왔을 때는
-     같은 세션 안에서 로딩 화면을 다시 보여주지 않습니다. */
-  if(sessionStorage.getItem("loaderShown")){
-    loader.remove();
-    return;
+  async function store(mode, fn) {
+    const d = await db();
+    return new Promise((res, rej) => {
+      const t = d.transaction('photos', mode);
+      const req = fn(t.objectStore('photos'));
+      t.oncomplete = () => res(req ? req.result : undefined);
+      t.onerror = () => rej(t.error);
+      t.onabort = () => rej(t.error);
+    });
   }
-  sessionStorage.setItem("loaderShown", "1");
-
-  if(reduced){
-    percentEl.textContent = "100";
-    setTimeout(()=>{ loader.classList.add("loader-done"); setTimeout(()=>loader.remove(),400); }, 300);
-    return;
+  async function loadUploads() {
+    upQs.forEach(q => q.src && URL.revokeObjectURL(q.src));
+    try {
+      const recs = (await store('readonly', st => st.getAll())) || [];
+      recs.sort((a, b) => a.order - b.order);
+      upQs = recs.map(r => ({ id: 'u:' + r.id, key: r.id, name: r.name || '', src: URL.createObjectURL(r.blob), source: 'upload', order: r.order }));
+      idbOK = true;
+    } catch (e) { upQs = []; idbOK = false; }
   }
-
-  const duration = 2600;
-  const start = performance.now();
-  const radius = Math.min(window.innerWidth, window.innerHeight) * 0.16;
-
-  function frame(now){
-    const elapsed = now - start;
-    const progress = Math.min(100, Math.round((elapsed/duration)*100));
-    percentEl.textContent = progress;
-
-    const angle = elapsed / 340;
-    const slow = progress > 82 ? Math.max(0,(100-progress))/18 : 1;
-    const r = radius * slow;
-    const x = Math.cos(angle) * r;
-    const y = Math.sin(angle*1.4) * r * 0.55;
-    const rot = (angle*57.3) % 360;
-    hornet.style.transform = `translate(${x}px, ${y}px) rotate(${rot}deg)`;
-
-    if(progress < 100){
-      requestAnimationFrame(frame);
-    } else {
-      hornet.style.transition = "transform .55s cubic-bezier(.2,.8,.2,1)";
-      hornet.style.transform = "translate(0px,0px) rotate(0deg) scale(1.1)";
-      hornet.classList.add("landed");
-      setTimeout(()=>{
-        loader.classList.add("loader-done");
-        document.body.classList.add("loaded");
-        setTimeout(()=>loader.remove(), 700);
-      }, 560);
+  function shrink(file) {
+    return new Promise(res => {
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        const M = 1400, w = img.naturalWidth, h = img.naturalHeight, k = Math.min(1, M / Math.max(w, h));
+        const c = document.createElement('canvas');
+        c.width = Math.round(w * k); c.height = Math.round(h * k);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url);
+        c.toBlob(b => res(b || file), 'image/jpeg', 0.86);
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); res(file); };
+      img.src = url;
+    });
+  }
+  async function addFiles(list) {
+    const files = [...list].filter(f => f.type.startsWith('image/') || /\.(jpe?g|png|webp|gif|heic)$/i.test(f.name));
+    files.sort((a, b) => a.name.localeCompare(b.name, 'ko', { numeric: true }));
+    let order = upQs.length ? Math.max(...upQs.map(q => q.order)) + 1 : 0;
+    const prog = $('#upProg');
+    try {
+      for (let i = 0; i < files.length; i++) {
+        prog.textContent = `사진 저장 중… ${i + 1} / ${files.length}`;
+        const blob = await shrink(files[i]);
+        const id = Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+        await store('readwrite', st => st.put({ id, name: nameFromFile(files[i].name), blob, order: order++ }));
+      }
+      prog.textContent = files.length ? `${files.length}장 추가 완료` : '';
+    } catch (e) {
+      prog.textContent = '저장 실패: 이 브라우저에서는 사진 저장이 막혀 있어요 (사생활 보호 모드 등)';
     }
+    await loadUploads(); renderManage(); renderHome();
   }
-  requestAnimationFrame(frame);
+  async function renameUpload(key, name) {
+    const d = await db();
+    await new Promise((res, rej) => {
+      const t = d.transaction('photos', 'readwrite'), st = t.objectStore('photos'), g = st.get(key);
+      g.onsuccess = () => { const r = g.result; if (r) { r.name = name; st.put(r); } };
+      t.oncomplete = res; t.onerror = () => rej(t.error);
+    });
+    const q = upQs.find(q => q.key === key); if (q) q.name = name;
+  }
+
+  /* ---------- 화면 ---------- */
+  function show(id) { document.querySelectorAll('.screen').forEach(s => s.classList.toggle('active', s.id === id)); }
+
+  function renderHome() {
+    const p = playable();
+    const left = p.filter(q => !used.has(q.id)).length;
+    $('#sTotal').textContent = p.length;
+    $('#sLeft').textContent = left;
+    $('#sPlayers').textContent = stats.players;
+    $('#sWins').textContent = stats.wins;
+    $('#hTarget').textContent = S.target;
+    $('#btnPlay').disabled = left === 0;
+    const unnamed = upQs.filter(q => !q.name.trim()).length;
+    let w = '';
+    if (!p.length) w = 'quiz-data.js에 문제를 적거나, “문제 관리”에서 사진을 추가해 주세요.';
+    else if (!left) w = '모든 문제가 한 번씩 나왔어요. “나온 문제 초기화”를 누르면 다시 섞어서 시작해요.';
+    if (unnamed) w += (w ? ' ' : '') + `이름이 비어 있는 사진 ${unnamed}장은 게임에 나오지 않아요.`;
+    if (!idbOK) w += (w ? ' ' : '') + '(이 브라우저에서는 앱 안에서 사진 추가가 안 돼요 — quiz-data.js 방식을 써 주세요.)';
+    $('#warn').textContent = w;
+  }
+
+  function renderManage() {
+    const g = $('#grid'); g.innerHTML = '';
+    const qs = allQs();
+    $('#mCount').textContent = `총 ${qs.length}개 · 게임 가능 ${playable().length}개`;
+    qs.forEach((q, i) => {
+      const c = document.createElement('div'); c.className = 'card';
+      const img = document.createElement('img'); img.loading = 'lazy'; img.alt = ''; if (q.src) img.src = q.src;
+      const no = document.createElement('span'); no.className = 'no'; no.textContent = i + 1;
+      const meta = document.createElement('div'); meta.className = 'meta';
+      c.append(img, no, meta);
+      if (q.source === 'upload') {
+        const inp = document.createElement('input');
+        inp.value = q.name; inp.placeholder = '이름 입력';
+        inp.className = q.name.trim() ? '' : 'empty';
+        inp.addEventListener('change', async () => {
+          const v = inp.value.trim();
+          await renameUpload(q.key, v);
+          inp.className = v ? '' : 'empty';
+          $('#mCount').textContent = `총 ${allQs().length}개 · 게임 가능 ${playable().length}개`;
+        });
+        inp.addEventListener('keydown', e => { if (e.key === 'Enter') inp.blur(); });
+        const del = document.createElement('button'); del.className = 'del'; del.textContent = '삭제';
+        del.onclick = async () => {
+          if (!confirm(`${q.name || '이 사진'}을(를) 삭제할까요?`)) return;
+          await store('readwrite', st => st.delete(q.key));
+          await loadUploads(); renderManage(); renderHome();
+        };
+        meta.append(inp); c.append(del);
+      } else {
+        const nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = q.name;
+        const tag = document.createElement('div'); tag.className = 'tag'; tag.textContent = '파일 (quiz-data.js)';
+        meta.append(nm, tag);
+      }
+      g.append(c);
+    });
+  }
+
+  /* ---------- 효과음 ---------- */
+  let ac = null;
+  function unlockAudio() {
+    try { ac = ac || new (window.AudioContext || window.webkitAudioContext)(); if (ac.state === 'suspended') ac.resume(); } catch (e) {}
+  }
+  function tone(f, d, type = 'sine', v = .22, delay = 0) {
+    if (!S.sound || !ac) return;
+    try {
+      const t0 = ac.currentTime + delay, o = ac.createOscillator(), g = ac.createGain();
+      o.type = type; o.frequency.value = f;
+      g.gain.setValueAtTime(v, t0); g.gain.exponentialRampToValueAtTime(.001, t0 + d);
+      o.connect(g); g.connect(ac.destination); o.start(t0); o.stop(t0 + d + .02);
+    } catch (e) {}
+  }
+  const sCount = i => tone(520 + i * 130, .16, 'square', .12);
+  const sOver = () => tone(180, .4, 'sawtooth', .16);
+  const sOk = () => { tone(880, .12); tone(1320, .2, 'sine', .22, .1); };
+  const sNg = () => { tone(200, .25, 'square', .14); tone(150, .35, 'square', .14, .2); };
+  const sWin = () => [523, 659, 784, 1047].forEach((f, i) => tone(f, .25, 'triangle', .22, i * .13));
+
+  /* ---------- 게임 ---------- */
+  const G = { state: 'idle', streak: 0, q: null, timers: [], token: 0 };
+  const clearTimers = () => { G.timers.forEach(clearTimeout); G.timers = []; };
+  const later = (fn, ms) => G.timers.push(setTimeout(fn, ms));
+
+  function setJudge(on, skip = on) {
+    $('#btnRight').disabled = !on; $('#btnWrong').disabled = !on; $('#btnSkip').disabled = !skip;
+  }
+  function renderDots() {
+    const d = $('#dots'); d.innerHTML = '';
+    for (let i = 0; i < S.target; i++) { const s = document.createElement('span'); s.className = 'dot' + (i < G.streak ? ' on' : ''); d.append(s); }
+  }
+  function updateLeft() { $('#left').textContent = `남은 문제 ${playable().filter(q => !used.has(q.id)).length}`; }
+  function showCount(w, over = false) {
+    const c = $('#count'); c.textContent = w;
+    c.classList.remove('pop'); void c.offsetWidth; if (w) c.classList.add('pop');
+    c.classList.toggle('over', over);
+  }
+  function resetBar() { const b = $('#barFill'); b.style.transition = 'none'; b.style.width = '0%'; }
+  function freezeBar() { const b = $('#barFill'); const w = getComputedStyle(b).width; b.style.transition = 'none'; b.style.width = w; }
+  function reveal(name, ok) { const r = $('#reveal'); r.textContent = name; r.className = 'reveal show ' + (ok ? 'ok' : 'ng'); }
+  function hideReveal() { $('#reveal').className = 'reveal'; }
+  function panel(html) { const p = $('#panel'); p.innerHTML = html; p.classList.add('show'); }
+  function hidePanel() { $('#panel').classList.remove('show'); }
+  function hidePhoto() { $('#photo').style.opacity = 0; $('#noimg').style.display = 'none'; }
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  function enterGame() {
+    unlockAudio(); show('game'); readyPanel();
+  }
+  function readyPanel() {
+    clearTimers(); G.state = 'ready'; G.streak = 0; G.q = null;
+    renderDots(); updateLeft(); showCount(''); resetBar(); hideReveal(); hidePhoto(); setJudge(false);
+    const left = playable().filter(q => !used.has(q.id)).length;
+    if (!left) return emptyPanel();
+    panel(`<h2>다음 도전자!</h2><p>사진이 나오면 <b class="ans">하나 · 둘 · 셋</b> 안에 이름을 외치세요<br>${S.target}명 연속 정답이면 성공</p>
+      <button class="big primary" data-act="start">도전 시작</button>`);
+  }
+  function emptyPanel() {
+    G.state = 'empty'; setJudge(false); hidePhoto(); showCount('');
+    panel(`<h2>문제를 모두 썼어요</h2><p>홈에서 “나온 문제 초기화”를 누르면 다시 시작할 수 있어요</p>
+      <button class="big" data-act="home">홈으로</button>`);
+  }
+  function startChallenger() {
+    unlockAudio(); stats.players++; write(STKEY, stats); nextQuestion();
+  }
+  function nextQuestion() {
+    clearTimers(); hidePanel(); hideReveal(); showCount(''); resetBar();
+    const pool = playable().filter(q => !used.has(q.id));
+    if (!pool.length) return emptyPanel();
+    const q = pool[Math.floor(Math.random() * pool.length)];
+    used.add(q.id); write(UKEY, [...used]); G.q = q; updateLeft();
+    G.state = 'loading'; setJudge(false, false); hidePhoto();
+    const token = ++G.token, img = $('#photo');
+    const done = ok => {
+      if (token !== G.token) return;
+      if (ok) { img.style.opacity = 1; startCountdown(); }
+      else { $('#noimg').style.display = 'flex'; G.state = 'broken'; setJudge(false, true); }
+    };
+    img.onload = () => done(true); img.onerror = () => done(false);
+    img.removeAttribute('src');
+    if (q.src) img.src = q.src; else done(false);
+  }
+  function startCountdown() {
+    G.state = 'counting'; setJudge(true);
+    const ms = S.sec * 1000, total = ms * WORDS.length, b = $('#barFill');
+    b.style.transition = 'none'; b.style.width = '0%'; void b.offsetWidth;
+    b.style.transition = `width ${total}ms linear`; b.style.width = '100%';
+    WORDS.forEach((w, i) => later(() => { showCount(w); sCount(i); }, i * ms));
+    later(timeUp, total);
+  }
+  function timeUp() {
+    G.state = 'judge'; showCount('땡!', true); sOver();
+    if (S.autoFail) later(() => judge(false), 400);
+  }
+  function judge(ok) {
+    if (G.state !== 'counting' && G.state !== 'judge') return;
+    clearTimers(); freezeBar(); G.state = 'reveal'; setJudge(false, false);
+    reveal(G.q.name, ok);
+    if (ok) {
+      G.streak++; renderDots(); sOk();
+      if (G.streak >= S.target) later(win, 900); else later(nextQuestion, 1200);
+    } else { sNg(); later(lose, 1100); }
+  }
+  function skip() {
+    if (!['counting', 'judge', 'broken'].includes(G.state)) return;
+    nextQuestion();
+  }
+  function win() {
+    stats.wins++; write(STKEY, stats); G.state = 'result'; sWin(); confetti();
+    panel(`<h2>🎉 성공!</h2><p>${S.target}명 연속 정답</p><button class="big primary" data-act="ready">다음 도전자</button>`);
+  }
+  function lose() {
+    G.state = 'result';
+    panel(`<h2>아쉽게 실패</h2><p>정답은 <span class="ans">${esc(G.q.name)}</span> · 연속 ${G.streak}명</p>
+      <button class="big primary" data-act="ready">다음 도전자</button>`);
+  }
+  function exitGame() { clearTimers(); G.token++; G.state = 'idle'; hidePanel(); show('home'); renderHome(); }
+
+  /* ---------- 축하 효과 ---------- */
+  function confetti() {
+    const cv = $('#fx'), ctx = cv.getContext('2d'), dpr = window.devicePixelRatio || 1;
+    cv.width = cv.clientWidth * dpr; cv.height = cv.clientHeight * dpr; ctx.scale(dpr, dpr);
+    const W = cv.clientWidth, H = cv.clientHeight, colors = ['#facc15', '#22c55e', '#38bdf8', '#f472b6', '#fb923c', '#fff'];
+    const ps = Array.from({ length: 160 }, () => ({ x: W / 2 + (Math.random() - .5) * 120, y: H * .55, vx: (Math.random() - .5) * 16, vy: -Math.random() * 18 - 6,
+      s: 6 + Math.random() * 8, r: Math.random() * 6, vr: (Math.random() - .5) * .4, c: colors[Math.floor(Math.random() * colors.length)] }));
+    const t0 = performance.now();
+    (function frame(t) {
+      ctx.clearRect(0, 0, W, H);
+      ps.forEach(p => { p.vy += .45; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.fillStyle = p.c; ctx.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); ctx.restore(); });
+      if (t - t0 < 2800) requestAnimationFrame(frame); else ctx.clearRect(0, 0, W, H);
+    })(t0);
+  }
+
+  /* ---------- 이벤트 ---------- */
+  $('#btnPlay').onclick = enterGame;
+  $('#btnManage').onclick = () => { renderManage(); show('manage'); };
+  $('#btnBack').onclick = () => { show('home'); renderHome(); };
+  $('#btnExit').onclick = exitGame;
+  $('#btnRight').onclick = () => judge(true);
+  $('#btnWrong').onclick = () => judge(false);
+  $('#btnSkip').onclick = skip;
+  $('#panel').addEventListener('click', e => {
+    const a = e.target.closest('[data-act]'); if (!a) return;
+    ({ start: startChallenger, ready: readyPanel, home: exitGame })[a.dataset.act]();
+  });
+  $('#btnResetDeck').onclick = () => { if (confirm('나온 문제 기록을 지우고 모든 문제를 다시 섞을까요?')) { used.clear(); write(UKEY, []); renderHome(); } };
+  $('#btnResetStats').onclick = () => { if (confirm('도전자 수와 성공 기록을 0으로 만들까요?')) { stats = { players: 0, wins: 0 }; write(STKEY, stats); renderHome(); } };
+  $('#btnFull').onclick = () => {
+    const el = document.documentElement, f = el.requestFullscreen || el.webkitRequestFullscreen;
+    if (f) f.call(el); else alert('이 브라우저는 전체화면 버튼을 지원하지 않아요. 공유 → “홈 화면에 추가”로 열면 전체화면으로 쓸 수 있어요.');
+  };
+  $('#fileIn').addEventListener('change', e => { addFiles(e.target.files); e.target.value = ''; });
+  $('#btnClearUp').onclick = async () => {
+    if (!upQs.length || !confirm(`앱에서 추가한 사진 ${upQs.length}장을 모두 삭제할까요?`)) return;
+    try { await store('readwrite', st => st.clear()); } catch (e) {}
+    await loadUploads(); renderManage(); renderHome();
+  };
+  $('#btnBulk').onclick = async () => {
+    const names = $('#bulk').value.split('\n').map(s => s.trim()).filter(Boolean);
+    if (!names.length || !upQs.length) return;
+    const n = Math.min(names.length, upQs.length);
+    for (let i = 0; i < n; i++) await renameUpload(upQs[i].key, names[i]);
+    renderManage(); renderHome();
+    alert(`${n}명의 이름을 적용했어요.` + (names.length !== upQs.length ? ` (이름 ${names.length}개 · 사진 ${upQs.length}장)` : ''));
+  };
+
+  const bindSel = (id, key, num) => { const el = $(id); el.value = String(S[key]); el.onchange = () => { S[key] = num ? Number(el.value) : el.value; write(SKEY, S); renderHome(); }; };
+  const bindChk = (id, key) => { const el = $(id); el.checked = !!S[key]; el.onchange = () => { S[key] = el.checked; write(SKEY, S); }; };
+  bindSel('#setSec', 'sec', true); bindSel('#setTarget', 'target', true);
+  bindChk('#setAuto', 'autoFail'); bindChk('#setSound', 'sound');
+
+  document.addEventListener('keydown', e => {
+    if (!$('#game').classList.contains('active') || e.target.matches('input,textarea')) return;
+    const k = e.key.toLowerCase();
+    if (k === ' ' || k === 'enter') {
+      e.preventDefault();
+      if (G.state === 'ready') startChallenger();
+      else if (G.state === 'result') readyPanel();
+    } else if (k === 'arrowright' || k === 'o') judge(true);
+    else if (k === 'arrowleft' || k === 'x') judge(false);
+    else if (k === 's') skip();
+    else if (k === 'escape') exitGame();
+  });
+
+  /* ---------- 시작 ---------- */
+  loadFileData();
+  renderHome();
+  loadUploads().then(renderHome);
 })();
 </script>
 </body>

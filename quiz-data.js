@@ -1,4 +1,4 @@
-// node make-data.js 로 자동 생성됨 (2026. 10. 12. 오전 12:03:34)
+// node make-data.js 로 자동 생성됨 (2026. 10. 12. 오전 12:19:42)
 // 이름이 틀린 게 있으면 여기서 직접 고쳐도 됩니다.
 window.QUIZ_DATA = [
   { name: "감스트", photo: "photos/감스트.webp" },
@@ -39,7 +39,7 @@ window.QUIZ_DATA = [
   { name: "송강", photo: "photos/송강.jpg" },
   { name: "송하영", photo: "photos/송하영.webp" },
   { name: "수지", photo: "photos/수지.jpg" },
-  { name: "슈카", photo: "photos/슈카.webp" },
+  { name: "슈가", photo: "photos/슈가.webp" },
   { name: "스윙스", photo: "photos/스윙스.webp" },
   { name: "스파이더맨", photo: "photos/스파이더맨.avif" },
   { name: "스폰지밥", photo: "photos/스폰지밥.webp" },

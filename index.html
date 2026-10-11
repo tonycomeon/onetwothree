@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>하나 둘 셋! 인물 퀴즈</title>
+<style>
+:root{
+  --bg:#0c0e13; --panel:#161922; --panel2:#1d212c; --line:#2b3040;
+  --text:#f4f5f8; --muted:#9aa1b3; --ok:#22c55e; --ng:#ef4444; --accent:#facc15;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;
+  touch-action:manipulation;overscroll-behavior:none;-webkit-user-select:none;user-select:none}
+input,textarea{-webkit-user-select:text;user-select:text}
+button,select,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;border-radius:16px;background:var(--panel2);padding:14px 20px;font-weight:700}
+button:disabled{opacity:.35;cursor:default}
+button:active:not(:disabled){transform:scale(.97)}
+.primary{background:var(--accent);color:#111}
+.ghost{background:transparent;border:1px solid var(--line);color:var(--muted)}
+.big{font-size:22px;padding:20px 28px;border-radius:20px}
+.screen{display:none;min-height:100%;flex-direction:column}
+.screen.active{display:flex}
+.wrap{width:100%;max-width:760px;margin:0 auto;padding:max(28px,env(safe-area-inset-top)) 20px 40px}
+.wrap.wide{max-width:1100px}
+.hint{color:var(--muted);font-size:15px;line-height:1.5}
+
+/* 홈 */
+h1{font-size:clamp(44px,8vw,76px);margin:24px 0 8px;letter-spacing:-1px}
+h1 span{color:var(--accent)}
+.sub{font-size:20px;color:var(--muted);margin:0 0 28px;line-height:1.5}
+.sub b{color:var(--text)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px}
+.stat small{display:block;color:var(--muted);font-size:14px}
+.stat strong{font-size:34px}
+.actions{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:16px}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.settings{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:6px 18px}
+.settings summary{padding:12px 0;font-weight:700;cursor:pointer}
+.setrow{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:1px solid var(--line);gap:12px}
+.setrow select{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 12px}
+.setrow input[type=checkbox]{width:24px;height:24px}
+.warn{color:var(--accent)}
+
+/* 게임 */
+#game{height:100%;min-height:100dvh;position:relative;overflow:hidden}
+.gbar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:max(12px,env(safe-area-inset-top)) 20px 8px;gap:12px}
+.dots{display:flex;gap:10px}
+.dot{width:30px;height:30px;border-radius:50%;border:3px solid var(--line)}
+.dot.on{background:var(--ok);border-color:var(--ok);box-shadow:0 0 16px rgba(34,197,94,.6)}
+.count{font-size:clamp(48px,8vw,84px);font-weight:900;min-width:4em;text-align:center;line-height:1}
+.count.pop{animation:pop .35s ease-out}
+.count.over{color:var(--ng)}
+@keyframes pop{from{transform:scale(1.6);opacity:.2}to{transform:scale(1);opacity:1}}
+.gright{display:flex;justify-content:flex-end;align-items:center;gap:12px;color:var(--muted)}
+.gright button{padding:10px 14px;font-size:15px}
+.bar{height:8px;margin:0 20px;background:var(--panel);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent)}
+.stage{flex:1;position:relative;display:flex;align-items:center;justify-content:center;padding:14px 20px;min-height:0}
+#photo{max-width:100%;max-height:100%;object-fit:contain;border-radius:18px;opacity:0;transition:opacity .15s}
+.noimg{display:none;position:absolute;inset:14px 20px;align-items:center;justify-content:center;flex-direction:column;gap:8px;
+  border:2px dashed var(--line);border-radius:18px;color:var(--muted);font-size:22px;text-align:center}
+.reveal{position:absolute;left:50%;bottom:28px;transform:translateX(-50%) scale(.9);opacity:0;transition:all .2s;
+  padding:14px 34px;border-radius:999px;font-size:clamp(30px,5vw,52px);font-weight:900;white-space:nowrap}
+.reveal.show{opacity:1;transform:translateX(-50%) scale(1)}
+.reveal.ok{background:var(--ok);color:#06210f}
+.reveal.ng{background:var(--ng);color:#fff}
+.panel{position:absolute;inset:0;display:none;align-items:center;justify-content:center;flex-direction:column;gap:18px;
+  background:rgba(12,14,19,.9);text-align:center;padding:24px;z-index:5}
+.panel.show{display:flex}
+.panel h2{font-size:clamp(40px,7vw,72px);margin:0}
+.panel p{font-size:24px;color:var(--muted);margin:0}
+.panel .ans{color:var(--text);font-weight:800}
+.ctrl{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;padding:12px 20px max(20px,env(safe-area-inset-bottom));align-items:center}
+.judge{font-size:clamp(28px,4.5vw,40px);padding:26px 10px;border-radius:24px;font-weight:900}
+.judge.ok{background:var(--ok);color:#06210f}
+.judge.ng{background:var(--ng);color:#fff}
+.ctrl .ghost{font-size:16px}
+#fx{position:absolute;inset:0;pointer-events:none;z-index:6}
+
+/* 문제 관리 */
+.mhead{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+.mhead h2{margin:0;font-size:30px;flex:1}
+.mtools{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.filebtn{position:relative;overflow:hidden;display:inline-block;cursor:pointer;font-weight:700}
+.filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer}
+details.bulk{margin:14px 0;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:6px 16px 14px}
+details.bulk summary{padding:10px 0;font-weight:700;cursor:pointer}
+textarea{width:100%;min-height:160px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;position:relative}
+.card img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:var(--panel2)}
+.card .meta{padding:8px}
+.card input{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:8px;font-weight:700}
+.card input.empty{border-color:var(--accent)}
+.card .nm{font-weight:700;padding:8px 2px}
+.card .no{position:absolute;top:6px;left:6px;background:rgba(0,0,0,.65);border-radius:8px;padding:2px 8px;font-size:13px}
+.card .tag{font-size:12px;color:var(--muted)}
+.card .del{position:absolute;top:6px;right:6px;padding:4px 10px;border-radius:8px;background:rgba(0,0,0,.65);font-size:13px}
+.progress{color:var(--accent);font-weight:700}
+@media (max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}.actions{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- 홈 -->
+<section id="home" class="screen active">
+  <div class="wrap">
+    <h1>하나 · 둘 · <span>셋!</span></h1>
+    <p class="sub">인물 사진을 보고 <b>“셋”</b> 안에 이름을 맞혀라.<br><b id="hTarget">3</b>명 연속으로 맞히면 성공!</p>
+    <div class="stats">
+      <div class="stat"><small>전체 문제</small><strong id="sTotal">0</strong></div>
+      <div class="stat"><small>남은 문제</small><strong id="sLeft">0</strong></div>
+      <div class="stat"><small>도전자</small><strong id="sPlayers">0</strong></div>
+      <div class="stat"><small>성공</small><strong id="sWins">0</strong></div>
+    </div>
+    <div class="actions">
+      <button id="btnPlay" class="big primary">게임 시작</button>
+      <button id="btnManage" class="big">문제 관리</button>
+    </div>
+    <p class="hint warn" id="warn"></p>
+    <details class="settings">
+      <summary>설정</summary>
+      <div class="setrow"><span>카운트 속도 (한 박자)</span>
+        <select id="setSec">
+          <option value="0.7">0.7초 (빠름)</option><option value="0.8">0.8초</option>
+          <option value="1">1초 (기본)</option><option value="1.2">1.2초</option>
+          <option value="1.5">1.5초</option><option value="2">2초 (느림)</option>
+        </select></div>
+      <div class="setrow"><span>성공 조건 (연속 정답)</span>
+        <select id="setTarget">
+          <option value="1">1명</option><option value="2">2명</option><option value="3">3명 (기본)</option>
+          <option value="4">4명</option><option value="5">5명</option>
+        </select></div>
+      <div class="setrow"><span>“셋”이 끝나면 자동으로 오답 처리</span><input type="checkbox" id="setAuto"></div>
+      <div class="setrow"><span>효과음</span><input type="checkbox" id="setSound"></div>
+    </details>
+    <div class="row">
+      <button id="btnResetDeck" class="ghost">나온 문제 초기화</button>
+      <button id="btnResetStats" class="ghost">도전자·성공 기록 초기화</button>
+      <button id="btnFull" class="ghost">전체화면</button>
+    </div>
+    <p class="hint">진행자 단축키(키보드): <b>Space</b> 시작/다음 · <b>→ / O</b> 정답 · <b>← / X</b> 오답 · <b>S</b> 건너뛰기</p>
+  </div>
+</section>
+
+<!-- 게임 -->
+<section id="game" class="screen">
+  <header class="gbar">
+    <div class="dots" id="dots"></div>
+    <div class="count" id="count"></div>
+    <div class="gright"><span id="left"></span><button id="btnExit" class="ghost">나가기</button></div>
+  </header>
+  <div class="bar"><i id="barFill"></i></div>
+  <main class="stage">
+    <img id="photo" alt="">
+    <div id="noimg" class="noimg">사진을 불러올 수 없어요<small>건너뛰기를 눌러 주세요</small></div>
+    <div id="reveal" class="reveal"></div>
+    <div id="panel" class="panel"></div>
+  </main>
+  <footer class="ctrl">
+    <button id="btnWrong" class="judge ng" disabled>✕ 오답</button>
+    <button id="btnSkip" class="ghost" disabled>건너뛰기</button>
+    <button id="btnRight" class="judge ok" disabled>○ 정답</button>
+  </footer>
+  <canvas id="fx"></canvas>
+</section>
+
+<!-- 문제 관리 -->
+<section id="manage" class="screen">
+  <div class="wrap wide">
+    <div class="mhead">
+      <button id="btnBack" class="ghost">← 돌아가기</button>
+      <h2>문제 관리</h2>
+      <span id="mCount" class="hint"></span>
+    </div>
+    <div class="mtools">
+      <label class="filebtn big primary">사진 추가<input type="file" id="fileIn" accept="image/*" multiple></label>
+      <button id="btnClearUp" class="ghost">추가한 사진 전체 삭제</button>
+      <span id="upProg" class="progress"></span>
+    </div>
+    <p class="hint">파일 이름이 그대로 이름이 돼요 (예: <b>001_홍길동.jpg → 홍길동</b>). 이름 칸을 눌러 바로 고칠 수 있고, 이름이 비어 있는 사진은 게임에 나오지 않아요.<br>
+      여기서 추가한 사진은 이 기기·이 브라우저에만 저장돼요. <b>quiz-data.js</b>에 적은 문제는 “파일” 표시로 함께 보입니다.</p>
+    <details class="bulk">
+      <summary>이름 한 번에 입력하기</summary>
+      <textarea id="bulk" placeholder="한 줄에 한 명씩, 추가한 사진 순서대로 입력하세요&#10;홍길동&#10;김철수&#10;..."></textarea>
+      <button id="btnBulk" class="primary">사진 순서대로 적용</button>
+    </details>
+    <div id="grid" class="grid"></div>
+  </div>
+</section>
+
+<script src="quiz-data.js"></script>
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const WORDS = ['하나', '둘', '셋'];
+  const SKEY = 'hds.settings.v1', UKEY = 'hds.used.v1', STKEY = 'hds.stats.v1';
+  const DEFAULTS = { sec: 1, target: 3, autoFail: false, sound: true };
+
+  const read = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } };
+  const write = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+
+  let S = Object.assign({}, DEFAULTS, read(SKEY, {}));
+  let used = new Set(read(UKEY, []));
+  let stats = Object.assign({ players: 0, wins: 0 }, read(STKEY, {}));
+  let fileQs = [], upQs = [], idbOK = true;
+
+  /* ---------- 데이터 ---------- */
+  function loadFileData() {
+    const raw = Array.isArray(window.QUIZ_DATA) ? window.QUIZ_DATA : [];
+    fileQs = raw.filter(x => x && x.name && String(x.name).trim()).map(x => ({
+      id: 'f:' + (x.photo || '') + '|' + String(x.name).trim(),
+      name: String(x.name).trim(), src: x.photo || '', source: 'file'
+    }));
+  }
+  const allQs = () => fileQs.concat(upQs);
+  const playable = () => allQs().filter(q => q.name && q.name.trim());
+
+  function nameFromFile(n) {
+    let s = n.replace(/\.[^.]+$/, '').replace(/^\d+[\s._-]+/, '').trim();
+    if (/^(IMG|DSC|DSCN|PXL|image|photo|Screenshot)[\s_-]?\d/i.test(s) || /^\d+$/.test(s)) return '';
+    return s;
+  }
+
+  /* ---------- IndexedDB (앱에서 추가한 사진) ---------- */
+  let dbp = null;
+  function db() {
+    if (!dbp) dbp = new Promise((res, rej) => {
+      try {
+        const r = indexedDB.open('hds-quiz', 1);
+        r.onupgradeneeded = () => r.result.createObjectStore('photos', { keyPath: 'id' });
+        r.onsuccess = () => res(r.result);
+        r.onerror = () => rej(r.error);
+      } catch (e) { rej(e); }
+    });
+    return dbp;
+  }
+  async function store(mode, fn) {
+    const d = await db();
+    return new Promise((res, rej) => {
+      const t = d.transaction('photos', mode);
+      const req = fn(t.objectStore('photos'));
+      t.oncomplete = () => res(req ? req.result : undefined);
+      t.onerror = () => rej(t.error);
+      t.onabort = () => rej(t.error);
+    });
+  }
+  async function loadUploads() {
+    upQs.forEach(q => q.src && URL.revokeObjectURL(q.src));
+    try {
+      const recs = (await store('readonly', st => st.getAll())) || [];
+      recs.sort((a, b) => a.order - b.order);
+      upQs = recs.map(r => ({ id: 'u:' + r.id, key: r.id, name: r.name || '', src: URL.createObjectURL(r.blob), source: 'upload', order: r.order }));
+      idbOK = true;
+    } catch (e) { upQs = []; idbOK = false; }
+  }
+  function shrink(file) {
+    return new Promise(res => {
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        const M = 1400, w = img.naturalWidth, h = img.naturalHeight, k = Math.min(1, M / Math.max(w, h));
+        const c = document.createElement('canvas');
+        c.width = Math.round(w * k); c.height = Math.round(h * k);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url);
+        c.toBlob(b => res(b || file), 'image/jpeg', 0.86);
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); res(file); };
+      img.src = url;
+    });
+  }
+  async function addFiles(list) {
+    const files = [...list].filter(f => f.type.startsWith('image/') || /\.(jpe?g|png|webp|gif|heic)$/i.test(f.name));
+    files.sort((a, b) => a.name.localeCompare(b.name, 'ko', { numeric: true }));
+    let order = upQs.length ? Math.max(...upQs.map(q => q.order)) + 1 : 0;
+    const prog = $('#upProg');
+    try {
+      for (let i = 0; i < files.length; i++) {
+        prog.textContent = `사진 저장 중… ${i + 1} / ${files.length}`;
+        const blob = await shrink(files[i]);
+        const id = Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+        await store('readwrite', st => st.put({ id, name: nameFromFile(files[i].name), blob, order: order++ }));
+      }
+      prog.textContent = files.length ? `${files.length}장 추가 완료` : '';
+    } catch (e) {
+      prog.textContent = '저장 실패: 이 브라우저에서는 사진 저장이 막혀 있어요 (사생활 보호 모드 등)';
+    }
+    await loadUploads(); renderManage(); renderHome();
+  }
+  async function renameUpload(key, name) {
+    const d = await db();
+    await new Promise((res, rej) => {
+      const t = d.transaction('photos', 'readwrite'), st = t.objectStore('photos'), g = st.get(key);
+      g.onsuccess = () => { const r = g.result; if (r) { r.name = name; st.put(r); } };
+      t.oncomplete = res; t.onerror = () => rej(t.error);
+    });
+    const q = upQs.find(q => q.key === key); if (q) q.name = name;
+  }
+
+  /* ---------- 화면 ---------- */
+  function show(id) { document.querySelectorAll('.screen').forEach(s => s.classList.toggle('active', s.id === id)); }
+
+  function renderHome() {
+    const p = playable();
+    const left = p.filter(q => !used.has(q.id)).length;
+    $('#sTotal').textContent = p.length;
+    $('#sLeft').textContent = left;
+    $('#sPlayers').textContent = stats.players;
+    $('#sWins').textContent = stats.wins;
+    $('#hTarget').textContent = S.target;
+    $('#btnPlay').disabled = left === 0;
+    const unnamed = upQs.filter(q => !q.name.trim()).length;
+    let w = '';
+    if (!p.length) w = 'quiz-data.js에 문제를 적거나, “문제 관리”에서 사진을 추가해 주세요.';
+    else if (!left) w = '모든 문제가 한 번씩 나왔어요. “나온 문제 초기화”를 누르면 다시 섞어서 시작해요.';
+    if (unnamed) w += (w ? ' ' : '') + `이름이 비어 있는 사진 ${unnamed}장은 게임에 나오지 않아요.`;
+    if (!idbOK) w += (w ? ' ' : '') + '(이 브라우저에서는 앱 안에서 사진 추가가 안 돼요 — quiz-data.js 방식을 써 주세요.)';
+    $('#warn').textContent = w;
+  }
+
+  function renderManage() {
+    const g = $('#grid'); g.innerHTML = '';
+    const qs = allQs();
+    $('#mCount').textContent = `총 ${qs.length}개 · 게임 가능 ${playable().length}개`;
+    qs.forEach((q, i) => {
+      const c = document.createElement('div'); c.className = 'card';
+      const img = document.createElement('img'); img.loading = 'lazy'; img.alt = ''; if (q.src) img.src = q.src;
+      const no = document.createElement('span'); no.className = 'no'; no.textContent = i + 1;
+      const meta = document.createElement('div'); meta.className = 'meta';
+      c.append(img, no, meta);
+      if (q.source === 'upload') {
+        const inp = document.createElement('input');
+        inp.value = q.name; inp.placeholder = '이름 입력';
+        inp.className = q.name.trim() ? '' : 'empty';
+        inp.addEventListener('change', async () => {
+          const v = inp.value.trim();
+          await renameUpload(q.key, v);
+          inp.className = v ? '' : 'empty';
+          $('#mCount').textContent = `총 ${allQs().length}개 · 게임 가능 ${playable().length}개`;
+        });
+        inp.addEventListener('keydown', e => { if (e.key === 'Enter') inp.blur(); });
+        const del = document.createElement('button'); del.className = 'del'; del.textContent = '삭제';
+        del.onclick = async () => {
+          if (!confirm(`${q.name || '이 사진'}을(를) 삭제할까요?`)) return;
+          await store('readwrite', st => st.delete(q.key));
+          await loadUploads(); renderManage(); renderHome();
+        };
+        meta.append(inp); c.append(del);
+      } else {
+        const nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = q.name;
+        const tag = document.createElement('div'); tag.className = 'tag'; tag.textContent = '파일 (quiz-data.js)';
+        meta.append(nm, tag);
+      }
+      g.append(c);
+    });
+  }
+
+  /* ---------- 효과음 ---------- */
+  let ac = null;
+  function unlockAudio() {
+    try { ac = ac || new (window.AudioContext || window.webkitAudioContext)(); if (ac.state === 'suspended') ac.resume(); } catch (e) {}
+  }
+  function tone(f, d, type = 'sine', v = .22, delay = 0) {
+    if (!S.sound || !ac) return;
+    try {
+      const t0 = ac.currentTime + delay, o = ac.createOscillator(), g = ac.createGain();
+      o.type = type; o.frequency.value = f;
+      g.gain.setValueAtTime(v, t0); g.gain.exponentialRampToValueAtTime(.001, t0 + d);
+      o.connect(g); g.connect(ac.destination); o.start(t0); o.stop(t0 + d + .02);
+    } catch (e) {}
+  }
+  const sCount = i => tone(520 + i * 130, .16, 'square', .12);
+  const sOver = () => tone(180, .4, 'sawtooth', .16);
+  const sOk = () => { tone(880, .12); tone(1320, .2, 'sine', .22, .1); };
+  const sNg = () => { tone(200, .25, 'square', .14); tone(150, .35, 'square', .14, .2); };
+  const sWin = () => [523, 659, 784, 1047].forEach((f, i) => tone(f, .25, 'triangle', .22, i * .13));
+
+  /* ---------- 게임 ---------- */
+  const G = { state: 'idle', streak: 0, q: null, timers: [], token: 0 };
+  const clearTimers = () => { G.timers.forEach(clearTimeout); G.timers = []; };
+  const later = (fn, ms) => G.timers.push(setTimeout(fn, ms));
+
+  function setJudge(on, skip = on) {
+    $('#btnRight').disabled = !on; $('#btnWrong').disabled = !on; $('#btnSkip').disabled = !skip;
+  }
+  function renderDots() {
+    const d = $('#dots'); d.innerHTML = '';
+    for (let i = 0; i < S.target; i++) { const s = document.createElement('span'); s.className = 'dot' + (i < G.streak ? ' on' : ''); d.append(s); }
+  }
+  function updateLeft() { $('#left').textContent = `남은 문제 ${playable().filter(q => !used.has(q.id)).length}`; }
+  function showCount(w, over = false) {
+    const c = $('#count'); c.textContent = w;
+    c.classList.remove('pop'); void c.offsetWidth; if (w) c.classList.add('pop');
+    c.classList.toggle('over', over);
+  }
+  function resetBar() { const b = $('#barFill'); b.style.transition = 'none'; b.style.width = '0%'; }
+  function freezeBar() { const b = $('#barFill'); const w = getComputedStyle(b).width; b.style.transition = 'none'; b.style.width = w; }
+  function reveal(name, ok) { const r = $('#reveal'); r.textContent = name; r.className = 'reveal show ' + (ok ? 'ok' : 'ng'); }
+  function hideReveal() { $('#reveal').className = 'reveal'; }
+  function panel(html) { const p = $('#panel'); p.innerHTML = html; p.classList.add('show'); }
+  function hidePanel() { $('#panel').classList.remove('show'); }
+  function hidePhoto() { $('#photo').style.opacity = 0; $('#noimg').style.display = 'none'; }
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  function enterGame() {
+    unlockAudio(); show('game'); readyPanel();
+  }
+  function readyPanel() {
+    clearTimers(); G.state = 'ready'; G.streak = 0; G.q = null;
+    renderDots(); updateLeft(); showCount(''); resetBar(); hideReveal(); hidePhoto(); setJudge(false);
+    const left = playable().filter(q => !used.has(q.id)).length;
+    if (!left) return emptyPanel();
+    panel(`<h2>다음 도전자!</h2><p>사진이 나오면 <b class="ans">하나 · 둘 · 셋</b> 안에 이름을 외치세요<br>${S.target}명 연속 정답이면 성공</p>
+      <button class="big primary" data-act="start">도전 시작</button>`);
+  }
+  function emptyPanel() {
+    G.state = 'empty'; setJudge(false); hidePhoto(); showCount('');
+    panel(`<h2>문제를 모두 썼어요</h2><p>홈에서 “나온 문제 초기화”를 누르면 다시 시작할 수 있어요</p>
+      <button class="big" data-act="home">홈으로</button>`);
+  }
+  function startChallenger() {
+    unlockAudio(); stats.players++; write(STKEY, stats); nextQuestion();
+  }
+  function nextQuestion() {
+    clearTimers(); hidePanel(); hideReveal(); showCount(''); resetBar();
+    const pool = playable().filter(q => !used.has(q.id));
+    if (!pool.length) return emptyPanel();
+    const q = pool[Math.floor(Math.random() * pool.length)];
+    used.add(q.id); write(UKEY, [...used]); G.q = q; updateLeft();
+    G.state = 'loading'; setJudge(false, false); hidePhoto();
+    const token = ++G.token, img = $('#photo');
+    const done = ok => {
+      if (token !== G.token) return;
+      if (ok) { img.style.opacity = 1; startCountdown(); }
+      else { $('#noimg').style.display = 'flex'; G.state = 'broken'; setJudge(false, true); }
+    };
+    img.onload = () => done(true); img.onerror = () => done(false);
+    img.removeAttribute('src');
+    if (q.src) img.src = q.src; else done(false);
+  }
+  function startCountdown() {
+    G.state = 'counting'; setJudge(true);
+    const ms = S.sec * 1000, total = ms * WORDS.length, b = $('#barFill');
+    b.style.transition = 'none'; b.style.width = '0%'; void b.offsetWidth;
+    b.style.transition = `width ${total}ms linear`; b.style.width = '100%';
+    WORDS.forEach((w, i) => later(() => { showCount(w); sCount(i); }, i * ms));
+    later(timeUp, total);
+  }
+  function timeUp() {
+    G.state = 'judge'; showCount('땡!', true); sOver();
+    if (S.autoFail) later(() => judge(false), 400);
+  }
+  function judge(ok) {
+    if (G.state !== 'counting' && G.state !== 'judge') return;
+    clearTimers(); freezeBar(); G.state = 'reveal'; setJudge(false, false);
+    reveal(G.q.name, ok);
+    if (ok) {
+      G.streak++; renderDots(); sOk();
+      if (G.streak >= S.target) later(win, 900); else later(nextQuestion, 1200);
+    } else { sNg(); later(lose, 1100); }
+  }
+  function skip() {
+    if (!['counting', 'judge', 'broken'].includes(G.state)) return;
+    nextQuestion();
+  }
+  function win() {
+    stats.wins++; write(STKEY, stats); G.state = 'result'; sWin(); confetti();
+    panel(`<h2>🎉 성공!</h2><p>${S.target}명 연속 정답</p><button class="big primary" data-act="ready">다음 도전자</button>`);
+  }
+  function lose() {
+    G.state = 'result';
+    panel(`<h2>아쉽게 실패</h2><p>정답은 <span class="ans">${esc(G.q.name)}</span> · 연속 ${G.streak}명</p>
+      <button class="big primary" data-act="ready">다음 도전자</button>`);
+  }
+  function exitGame() { clearTimers(); G.token++; G.state = 'idle'; hidePanel(); show('home'); renderHome(); }
+
+  /* ---------- 축하 효과 ---------- */
+  function confetti() {
+    const cv = $('#fx'), ctx = cv.getContext('2d'), dpr = window.devicePixelRatio || 1;
+    cv.width = cv.clientWidth * dpr; cv.height = cv.clientHeight * dpr; ctx.scale(dpr, dpr);
+    const W = cv.clientWidth, H = cv.clientHeight, colors = ['#facc15', '#22c55e', '#38bdf8', '#f472b6', '#fb923c', '#fff'];
+    const ps = Array.from({ length: 160 }, () => ({ x: W / 2 + (Math.random() - .5) * 120, y: H * .55, vx: (Math.random() - .5) * 16, vy: -Math.random() * 18 - 6,
+      s: 6 + Math.random() * 8, r: Math.random() * 6, vr: (Math.random() - .5) * .4, c: colors[Math.floor(Math.random() * colors.length)] }));
+    const t0 = performance.now();
+    (function frame(t) {
+      ctx.clearRect(0, 0, W, H);
+      ps.forEach(p => { p.vy += .45; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.fillStyle = p.c; ctx.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); ctx.restore(); });
+      if (t - t0 < 2800) requestAnimationFrame(frame); else ctx.clearRect(0, 0, W, H);
+    })(t0);
+  }
+
+  /* ---------- 이벤트 ---------- */
+  $('#btnPlay').onclick = enterGame;
+  $('#btnManage').onclick = () => { renderManage(); show('manage'); };
+  $('#btnBack').onclick = () => { show('home'); renderHome(); };
+  $('#btnExit').onclick = exitGame;
+  $('#btnRight').onclick = () => judge(true);
+  $('#btnWrong').onclick = () => judge(false);
+  $('#btnSkip').onclick = skip;
+  $('#panel').addEventListener('click', e => {
+    const a = e.target.closest('[data-act]'); if (!a) return;
+    ({ start: startChallenger, ready: readyPanel, home: exitGame })[a.dataset.act]();
+  });
+  $('#btnResetDeck').onclick = () => { if (confirm('나온 문제 기록을 지우고 모든 문제를 다시 섞을까요?')) { used.clear(); write(UKEY, []); renderHome(); } };
+  $('#btnResetStats').onclick = () => { if (confirm('도전자 수와 성공 기록을 0으로 만들까요?')) { stats = { players: 0, wins: 0 }; write(STKEY, stats); renderHome(); } };
+  $('#btnFull').onclick = () => {
+    const el = document.documentElement, f = el.requestFullscreen || el.webkitRequestFullscreen;
+    if (f) f.call(el); else alert('이 브라우저는 전체화면 버튼을 지원하지 않아요. 공유 → “홈 화면에 추가”로 열면 전체화면으로 쓸 수 있어요.');
+  };
+  $('#fileIn').addEventListener('change', e => { addFiles(e.target.files); e.target.value = ''; });
+  $('#btnClearUp').onclick = async () => {
+    if (!upQs.length || !confirm(`앱에서 추가한 사진 ${upQs.length}장을 모두 삭제할까요?`)) return;
+    try { await store('readwrite', st => st.clear()); } catch (e) {}
+    await loadUploads(); renderManage(); renderHome();
+  };
+  $('#btnBulk').onclick = async () => {
+    const names = $('#bulk').value.split('\n').map(s => s.trim()).filter(Boolean);
+    if (!names.length || !upQs.length) return;
+    const n = Math.min(names.length, upQs.length);
+    for (let i = 0; i < n; i++) await renameUpload(upQs[i].key, names[i]);
+    renderManage(); renderHome();
+    alert(`${n}명의 이름을 적용했어요.` + (names.length !== upQs.length ? ` (이름 ${names.length}개 · 사진 ${upQs.length}장)` : ''));
+  };
+
+  const bindSel = (id, key, num) => { const el = $(id); el.value = String(S[key]); el.onchange = () => { S[key] = num ? Number(el.value) : el.value; write(SKEY, S); renderHome(); }; };
+  const bindChk = (id, key) => { const el = $(id); el.checked = !!S[key]; el.onchange = () => { S[key] = el.checked; write(SKEY, S); }; };
+  bindSel('#setSec', 'sec', true); bindSel('#setTarget', 'target', true);
+  bindChk('#setAuto', 'autoFail'); bindChk('#setSound', 'sound');
+
+  document.addEventListener('keydown', e => {
+    if (!$('#game').classList.contains('active') || e.target.matches('input,textarea')) return;
+    const k = e.key.toLowerCase();
+    if (k === ' ' || k === 'enter') {
+      e.preventDefault();
+      if (G.state === 'ready') startChallenger();
+      else if (G.state === 'result') readyPanel();
+    } else if (k === 'arrowright' || k === 'o') judge(true);
+    else if (k === 'arrowleft' || k === 'x') judge(false);
+    else if (k === 's') skip();
+    else if (k === 'escape') exitGame();
+  });
+
+  /* ---------- 시작 ---------- */
+  loadFileData();
+  renderHome();
+  loadUploads().then(renderHome);
+})();
+</script>
+</body>
+</html>

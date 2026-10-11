@@ -1,0 +1,17 @@
+{
+  "name": "hanadulset-quiz",
+  "version": "1.0.0",
+  "private": true,
+  "description": "하나 둘 셋! 인물 퀴즈 — GitHub Pages 정적 게임 (tonycomeon/onetwothree)",
+  "config": {
+    "liveBase": "https://tonycomeon.github.io/onetwothree/"
+  },
+  "scripts": {
+    "data": "node make-data.js",
+    "check": "node scripts/check.js",
+    "serve": "python3 -m http.server 8080 --bind 127.0.0.1",
+    "verify-live": "node scripts/verify-live.js",
+    "deploy": "node scripts/deploy.js"
+  },
+  "engines": { "node": ">=18" }
+}

@@ -105,6 +105,15 @@ textarea{width:100%;min-height:160px;background:var(--panel2);border:1px solid v
 .card .del{position:absolute;top:6px;right:6px;padding:4px 10px;border-radius:8px;background:rgba(0,0,0,.65);font-size:13px}
 .progress{color:var(--accent);font-weight:700}
 @media (max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}.actions{grid-template-columns:1fr}}
+
+/* 디버그 (?debug=1) */
+.debug{position:fixed;left:8px;bottom:8px;z-index:50;max-width:min(420px,60vw);max-height:38vh;overflow:auto;
+  background:rgba(0,0,0,.82);border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:12px;line-height:1.5;color:var(--muted);
+  -webkit-user-select:text;user-select:text}
+.debug b{color:var(--accent);cursor:pointer}
+.debug.min>*:not(b){display:none}
+.debug ul{margin:2px 0 0;padding-left:16px;word-break:break-all}
+.debug li{color:#fca5a5}
 </style>
 </head>
 <body>
@@ -172,6 +181,16 @@ textarea{width:100%;min-height:160px;background:var(--panel2);border:1px solid v
   <canvas id="fx"></canvas>
 </section>
 
+<!-- 디버그 오버레이: 주소 뒤에 ?debug=1 을 붙이면 보임 -->
+<div id="debug" class="debug" hidden>
+  <b title="누르면 접기/펼치기">디버그 ▾</b>
+  <div>불러온 문제: <span id="dbgCount">-</span>개 (파일 <span id="dbgFile">-</span> · 앱 추가 <span id="dbgUp">-</span>)</div>
+  <div>quiz-data.js: <span id="dbgData">불러오는 중…</span></div>
+  <div>생성 시각: <span id="dbgGen">-</span></div>
+  <div>실패한 사진 URL (<span id="dbgFailN">0</span>개)</div>
+  <ul id="dbgFails"></ul>
+</div>
+
 <!-- 문제 관리 -->
 <section id="manage" class="screen">
   <div class="wrap wide">
@@ -196,7 +215,6 @@ textarea{width:100%;min-height:160px;background:var(--panel2);border:1px solid v
   </div>
 </section>
 
-<script src="quiz-data.js"></script>
 <script>
 (() => {
   const $ = s => document.querySelector(s);
@@ -222,6 +240,51 @@ textarea{width:100%;min-height:160px;background:var(--panel2);border:1px solid v
   }
   const allQs = () => fileQs.concat(upQs);
   const playable = () => allQs().filter(q => q.name && q.name.trim());
+
+  /* ---------- 디버그 (?debug=1) ---------- */
+  const DBG = {
+    on: new URLSearchParams(location.search).get('debug') === '1',
+    failed: [], dataStatus: '불러오는 중…', generated: '',
+    fail(url) { if (!this.failed.includes(url)) this.failed.push(url); this.render(); },
+    render() {
+      if (!this.on) return;
+      const el = $('#debug');
+      if (el.hidden) { el.hidden = false; el.querySelector('b').onclick = () => el.classList.toggle('min'); }
+      $('#dbgCount').textContent = playable().length;
+      $('#dbgFile').textContent = fileQs.length; $('#dbgUp').textContent = upQs.length;
+      $('#dbgData').textContent = this.dataStatus;
+      $('#dbgGen').textContent = this.generated || '(알 수 없음)';
+      $('#dbgFailN').textContent = this.failed.length;
+      const ul = $('#dbgFails'); ul.innerHTML = '';
+      this.failed.forEach(u => { const li = document.createElement('li'); li.textContent = u; ul.append(li); });
+    }
+  };
+
+  /* ---------- 사진 불러오기: 경로 그대로 → NFC → NFD 순서로 시도 ---------- */
+  function srcCandidates(src) {
+    const out = [];
+    for (const c of [src, src.normalize('NFC'), src.normalize('NFD')]) if (c && !out.includes(c)) out.push(c);
+    return out;
+  }
+  // 모두 실패하면 cb(false). 같은 img 에 새 요청이 들어오면 이전 핸들러는 자연히 덮어써짐.
+  function loadImageWithFallback(img, src, cb) {
+    const cands = srcCandidates(src || ''); let i = 0;
+    const tryNext = () => {
+      if (i >= cands.length) {
+        img.onload = img.onerror = null;
+        console.warn('[인물퀴즈] 사진을 불러올 수 없어요:', src, '(시도한 경로:', cands.join(' , '), ')');
+        DBG.fail(src || '(빈 경로)');
+        return cb(false);
+      }
+      const cur = cands[i++];
+      img.onload = () => { img.onload = img.onerror = null; cb(true, cur); };
+      img.onerror = () => { if (i < cands.length) console.warn('[인물퀴즈] 사진 로드 실패, 다른 표기로 재시도:', cur); tryNext(); };
+      img.src = cur;
+    };
+    img.removeAttribute('src');
+    if (!cands.length) return cb(false);
+    tryNext();
+  }
 
   function nameFromFile(n) {
     let s = n.replace(/\.[^.]+$/, '').replace(/^\d+[\s._-]+/, '').trim();
@@ -332,7 +395,8 @@ textarea{width:100%;min-height:160px;background:var(--panel2);border:1px solid v
     $('#mCount').textContent = `총 ${qs.length}개 · 게임 가능 ${playable().length}개`;
     qs.forEach((q, i) => {
       const c = document.createElement('div'); c.className = 'card';
-      const img = document.createElement('img'); img.loading = 'lazy'; img.alt = ''; if (q.src) img.src = q.src;
+      const img = document.createElement('img'); img.loading = 'lazy'; img.alt = '';
+      if (q.src) loadImageWithFallback(img, q.src, () => {});
       const no = document.createElement('span'); no.className = 'no'; no.textContent = i + 1;
       const meta = document.createElement('div'); meta.className = 'meta';
       c.append(img, no, meta);
@@ -442,9 +506,7 @@ textarea{width:100%;min-height:160px;background:var(--panel2);border:1px solid v
       if (ok) { img.style.opacity = 1; startCountdown(); }
       else { $('#noimg').style.display = 'flex'; G.state = 'broken'; setJudge(false, true); }
     };
-    img.onload = () => done(true); img.onerror = () => done(false);
-    img.removeAttribute('src');
-    if (q.src) img.src = q.src; else done(false);
+    loadImageWithFallback(img, q.src, done);
   }
   function startCountdown() {
     G.state = 'counting'; setJudge(true);
@@ -550,9 +612,33 @@ textarea{width:100%;min-height:160px;background:var(--panel2);border:1px solid v
   });
 
   /* ---------- 시작 ---------- */
-  loadFileData();
-  renderHome();
-  loadUploads().then(renderHome);
+  // quiz-data.js 는 캐시를 피하려고 ?t=현재시각 을 붙여 동적으로 불러온 뒤에 문제 목록을 만든다.
+  // (GitHub Pages 는 max-age=600 으로 내려 주므로 고정 <script src> 는 최대 10분 옛 데이터를 쓸 수 있음)
+  function loadQuizData() {
+    return new Promise(res => {
+      const url = 'quiz-data.js?t=' + Date.now();
+      const sc = document.createElement('script');
+      sc.src = url;
+      sc.onload = () => { DBG.dataStatus = '불러옴 (' + url + ')'; res(true); };
+      sc.onerror = () => { console.warn('[인물퀴즈] quiz-data.js 를 불러오지 못했어요:', url); DBG.dataStatus = '실패 (' + url + ')'; DBG.fail(url); res(false); };
+      document.head.appendChild(sc);
+    });
+  }
+  async function readGeneratedStamp() {
+    // make-data.js 가 넣어 주는 window.QUIZ_DATA_GENERATED 가 있으면 그걸 쓰고, 없으면 첫 줄 주석에서 읽는다.
+    if (window.QUIZ_DATA_GENERATED) return String(window.QUIZ_DATA_GENERATED);
+    try {
+      const txt = await (await fetch('quiz-data.js?t=' + Date.now(), { cache: 'no-store' })).text();
+      const m = txt.split('\n')[0].match(/\((.+)\)/);
+      return m ? m[1] : '';
+    } catch (e) { return ''; }
+  }
+  $('#warn').textContent = '문제를 불러오는 중…';
+  loadQuizData().then(async () => {
+    loadFileData(); renderHome();
+    if (DBG.on) { DBG.generated = await readGeneratedStamp(); DBG.render(); }
+    await loadUploads(); renderHome(); DBG.render();
+  });
 })();
 </script>
 </body>

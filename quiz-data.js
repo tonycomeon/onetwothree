@@ -1,5 +1,6 @@
-// node make-data.js 로 자동 생성됨 (2026. 10. 12. 오전 12:19:42)
-// 이름이 틀린 게 있으면 여기서 직접 고쳐도 됩니다.
+// node make-data.js 로 자동 생성됨 (2026. 10. 12. 오전 12:41:00)
+// 이름이 틀린 게 있으면 여기서 직접 고쳐도 됩니다. (파일 경로는 NFC 한글이어야 GitHub Pages 에서 열립니다)
+window.QUIZ_DATA_GENERATED = "2026. 10. 12. 오전 12:41:00";
 window.QUIZ_DATA = [
   { name: "감스트", photo: "photos/감스트.webp" },
   { name: "강호동", photo: "photos/강호동.webp" },

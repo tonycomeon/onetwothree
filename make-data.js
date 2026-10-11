@@ -16,7 +16,7 @@ const files = fs.readdirSync(dir)
 
 const items = files.map(f => {
   const name = f.normalize('NFC').replace(/\.[^.]+$/, '').replace(/^\d+[\s._-]+/, '').trim();
-  return { name, photo: 'photos/' + f };
+  return { name, photo: ('photos/' + f).normalize('NFC') };
 });
 
 const body = items.map(x => `  { name: ${JSON.stringify(x.name)}, photo: ${JSON.stringify(x.photo)} },`).join('\n');
